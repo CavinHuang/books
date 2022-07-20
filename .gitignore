@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 # src/程劭非（winter）-重学前端/*.mp3
 # src/李兵-浏览器工作原理与实践/*.mp3
-src/李兵-图解GoogleV8/*.mp3
+# src/李兵-图解GoogleV8/*.mp3
 src/周爱民-JavaScript核心原理解析/*.mp3
 src/蒲松洋（秦粤）-Serverless入门课/*.mp3
 src/朱维刚-重学线性代数/*.mp3
