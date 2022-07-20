@@ -9,12 +9,12 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 ```html
 <ul>
   <li v-for="book in books" :key="book.id">
-    {{ book.name }}
+    {{ book.bookName }}
   </li>
 </ul>
 ```
 
-使用者传递一个数组 `books`，由组件内的 `v-for` 循环显示，这里的 `{{ book.name }}` 是纯文本输出，如果想自定义它的模板（即内容分发），就要用到 slot，但 slot 只能是固定的模板，没法自定义循环体中的一个具体的项，事实上这跟上一节的 Table 场景是类似的。
+使用者传递一个数组 `books`，由组件内的 `v-for` 循环显示，这里的 `{{ book.bookName }}` 是纯文本输出，如果想自定义它的模板（即内容分发），就要用到 slot，但 slot 只能是固定的模板，没法自定义循环体中的一个具体的项，事实上这跟上一节的 Table 场景是类似的。
 
 常规的 slot 无法实现对组件循环体的每一项进行不同的内容分发，这就要用到 slot-scope，它本质上跟 slot 一样，只不过可以传递参数。比如上面的示例，使用 slot-scope 封装：
 
@@ -23,7 +23,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
   <li v-for="book in books" :key="book.id">
     <slot :book="book">
       <!-- 默认内容 -->
-      {{ book.name }}
+      {{ book.bookName }}
     </slot>
   </li>
 </ul>
@@ -35,7 +35,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 <book-list :books="books">
   <template slot-scope="slotProps">
     <span v-if="slotProps.book.sale">限时优惠</span>
-    {{ slotProps.book.name }}
+    {{ slotProps.book.bookName }}
   </template>
 </book-list>
 ```
@@ -46,7 +46,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 <book-list :books="books">
   <template slot-scope="{ book }">
     <span v-if="book.sale">限时优惠</span>
-    {{ book.name }}
+    {{ book.bookName }}
   </template>
 </book-list>
 ```
@@ -55,14 +55,14 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 ```vue
 <slot :book="book" name="book">
-  {{ book.name }}
+  {{ book.bookName }}
 </slot>
 ```
 
 ```vue
 <template slot-scope="{ book }" slot="book">
   <span v-if="book.sale">限时优惠</span>
-  {{ book.name }}
+  {{ book.bookName }}
 </template>
 ```
 
@@ -109,7 +109,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
     <table-slot :columns="columns" :data="data">
       <template slot-scope="{ row, index }" slot="name">
         <input type="text" v-model="editName" v-if="editIndex === index" />
-        <span v-else>{{ row.name }}</span>
+        <span v-else>{{ row.bookName }}</span>
       </template>
 
       <template slot-scope="{ row, index }" slot="age">
@@ -203,14 +203,14 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
     },
     methods: {
       handleEdit (row, index) {
-        this.editName = row.name;
+        this.editName = row.bookName;
         this.editAge = row.age;
         this.editAddress = row.address;
         this.editBirthday = row.birthday;
         this.editIndex = index;
       },
       handleSave (index) {
-        this.data[index].name = this.editName;
+        this.data[index].bookName = this.editName;
         this.data[index].age = this.editAge;
         this.data[index].birthday = this.editBirthday;
         this.data[index].address = this.editAddress;
@@ -244,7 +244,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
     <table-render ref="table" :columns="columns" :data="data">
       <template slot-scope="{ row, index }" slot="name">
         <input type="text" v-model="editName" v-if="editIndex === index" />
-        <span v-else>{{ row.name }}</span>
+        <span v-else>{{ row.bookName }}</span>
       </template>
 
       <template slot-scope="{ row, index }" slot="age">
@@ -287,7 +287,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
             render: (h, { row, column, index }) => {
               return h(
                 'div',
-                this.$refs.table.$scopedSlots.name({
+                this.$refs.table.$scopedSlots.bookName({
                   row: row,
                   column: column,
                   index: index
@@ -358,14 +358,14 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
     },
     methods: {
       handleEdit (row, index) {
-        this.editName = row.name;
+        this.editName = row.bookName;
         this.editAge = row.age;
         this.editAddress = row.address;
         this.editBirthday = row.birthday;
         this.editIndex = index;
       },
       handleSave (index) {
-        this.data[index].name = this.editName;
+        this.data[index].bookName = this.editName;
         this.data[index].age = this.editAge;
         this.data[index].birthday = this.editBirthday;
         this.data[index].address = this.editAddress;
@@ -418,7 +418,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 render: (h, { row, column, index }) => {
   return h(
     'div',
-    this.$refs.table.$scopedSlots.name({
+    this.$refs.table.$scopedSlots.bookName({
       row: row,
       column: column,
       index: index
