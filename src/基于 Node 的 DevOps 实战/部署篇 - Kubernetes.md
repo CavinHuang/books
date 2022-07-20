@@ -91,7 +91,7 @@ docker run -d -v /opt/registry:/var/lib/registry -p 5000:5000 --name myregistry 
 
 在 devops 项目根路径添加 Dockerfile 文件，输入如下代码：
 
-```Dockerfile
+```yaml
 FROM alpine
 
 RUN apk update \

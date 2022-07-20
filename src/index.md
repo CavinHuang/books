@@ -4,7 +4,7 @@
 
 - [Babel 插件通关秘籍](./Babel%20%E6%8F%92%E4%BB%B6%E9%80%9A%E5%85%B3%E7%A7%98%E7%B1%8D/index.md)
 
-- [Electron + React 从 0 到 1 实现简历平台实战](./Electron%20%2B%20React%20%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8E%86%E5%B9%B3%E5%8F%B0%E5%AE%9E%E6%88%98/index.md)
+- [Electron and React 从 0 到 1 实现简历平台实战](./Electron%20and%20React%20%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8E%86%E5%B9%B3%E5%8F%B0%E5%AE%9E%E6%88%98/index.md)
 
 - [Git 原理详解及实用指南](./Git%20%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/index.md)
 
@@ -12,7 +12,7 @@
 
 - [NestJS 项目实战](./NestJS%20%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/index.md)
 
-- [Node + React 实战：从 0 到 1 实现记账本](./Node%20%2B%20React%20%E5%AE%9E%E6%88%98%EF%BC%9A%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E8%AE%B0%E8%B4%A6%E6%9C%AC/index.md)
+- [Node and React 实战：从 0 到 1 实现记账本](./Node%20and%20React%20%E5%AE%9E%E6%88%98%EF%BC%9A%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E8%AE%B0%E8%B4%A6%E6%9C%AC/index.md)
 
 - [Python数据分析实战：构建股票量化交易系统](./Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%82%A1%E7%A5%A8%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F/index.md)
 

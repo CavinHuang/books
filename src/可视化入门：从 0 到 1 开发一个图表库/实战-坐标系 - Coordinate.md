@@ -29,7 +29,7 @@
 
 假如现有一个功能：计算多个海鸥群按照一定方式结合（Conjoin）和繁殖（Breed）后的海鸥总数。如果用面向对象的方式来实现该功能就如下：
 
-```js
+```javascript
 // 定义一个海鸥群
 // 这个群可以和别的海鸥群结合（Conjoin)和繁殖（Breed）
 class Flock {
@@ -62,7 +62,7 @@ const result = flockA
 
 那么接下来我们如何用函数式编程来实现相同的功能。
 
-```js
+```javascript
 // add 相当于上面的 cojoin，multiply 相当于上面的 breed
 // 这样命名的目的后面会讲
 const add = (x, y) => x + y;
@@ -77,7 +77,7 @@ const result =
 
 上面的这段代码不仅没有了难以跟踪的内部状态，也能让我们计算得到正确的结果，甚至如果大家熟悉加法交换律和乘法结合律等基本运算法则的话，上面的计算可以化简如下。
 
-```js
+```javascript
 const result = multiply(flockB, add(flockA, flockA));
 ```
 
@@ -89,7 +89,7 @@ const result = multiply(flockB, add(flockA, flockA));
 
 需要注意的是，这里的“一等”和我们平常理解的高人一等的“一等”不太一样，这里是指函数和其他基本数据类型（数值，字符串等）一样，没有什么特殊的地方。我们可以把函数存储在数组中，将它作为参数或者返回值，将它赋值给变量等等。
 
-```js
+```javascript
 const add = (x, y) => x + y; // 将函数赋值给变量
 const multiply = (x, y) => x * y;
 const operations = [add, multiply]; // 存储在数组里
@@ -107,19 +107,19 @@ const logify = (fn) => { // 将函数作为变量
 
 看上去将函数看做是一等公民非常简单，但其实也没有那么容易。比如我们希望使用上面的 `logify` 函数去包装 `add` 函数，从而在每次调用 `add` 的时候先打印参数。我们很容易给出如下的实现。
 
-```js
+```javascript
 const logAddWithDelay = logify((x, y) => add(x, y));
 ```
 
 上面的实现可以满足我们的需求，但是这样会不必要地延迟执行 `add` 函数，因为 `(x, y) => add(x, y)` 又包装了一层函数。真正把函数作为一等公民的写法应该如下。
 
-```js
+```javascript
 const logAdd = logify(add);
 ```
 
 上面这样写处理可以避免不必要的延迟执行之外，还可以方便的修改被包装的函数 `add` 的参数。
 
-```js
+```javascript
 // 支持三个数的加法
 const add = (x, y, z) => x + y + z;
 
@@ -142,7 +142,7 @@ const logAdd = logify(add);
 
 在了解了函数式编程中第一个重要概念之后，我们来看看第二个重要概念：纯函数（Pure Function）。纯函数就是当输入参数保持一致的情况下返回结果也保持一致的函数。
 
-```js
+```javascript
 const b = 1;
 
 // 不是纯函数
@@ -156,7 +156,7 @@ const pureAdd = (a, b) = a + b;
 
 纯函数意味着函数没有副作用（Side Effect）。副作用是在函数计算过程中改变了系统的状态或者和函数外部的世界有交互，它包括但不限于下面几种。
 
-```js
+```javascript
 // 打印日志
 console.log('hello world');
 
@@ -184,7 +184,7 @@ a // [1, 2, 3]
  -    可并行运行：因为不会访问外部变量，所以不会访问共享的内存，从而不会出现竞争。
  -    可缓存：可以根据输入将输出缓存下来，下面是一个简单的实现。
 
-```js
+```javascript
 const memoize = (f) => {
   const cache = {};
   return (...args) => {
@@ -203,7 +203,7 @@ squareNumber(4); // 16, 返回缓存的的 16
 
  -    引用透明（Referentially Transparent）：一段代码可以被它的计算后的值所替换而不改变程序的行为，那么它就是引用透明的。这个特性在重构代码的过程或者帮助我们理解代码非常有用。参考下面的例子。
 
-```js
+```javascript
 const impureMultiply = (a, b) => {
   console.log('multiply'); 
   return a * b;
@@ -223,7 +223,7 @@ const pureFn = (a, b, c) => add(pureMultiply(a, c) + pureMultiply(a, b));
 const impureFn = (a, b, c) => add(impureMultiply(a, c) + impureMultiply(a, b));
 ```
 
-```js
+```javascript
 // 根据乘法结合律：a * b + a * c = a * (b + c) 可以对 pureFn 函数重构化简
 const pureFn = pureMultiply(a, add(b, c));
 
@@ -238,14 +238,14 @@ const impureFn = (a, b, c) => impureMultiply(a, add(b, c));
 
 我们先来看看一个简单的`add` 函数，这个函数接受一个参数并且返回一个函数。
 
-```js
+```javascript
 const add = x => y => z => x + y + z;
 add(1)(2)(3) // 6
 ```
 
 上面的写法太麻烦了，我们可以实现一个通用的 `curry` 方法来实现上面的效果，期望的使用方法如下：
 
-```js
+```javascript
 const add = curry((x, y, z) => x + y + z);
 add(1)(2, 3); //6
 add(1, 2)(3); // 6
@@ -254,7 +254,7 @@ add(1, 2, 3); // 6
 
 这样做的好处是我们可以固定一些参数，减少传入的参数，让我们能更灵活和简单的使用函数，也为我们接下来的函数合成（Compose）打下基础。
 
-```js
+```javascript
 // 将第一个参数固定为 1
 const add1 = add(1);
 
@@ -275,7 +275,7 @@ add6(2); // 8
 
 知道了 `curry` 函数的用途，那么接下来我们就来实现一个简单的版本。
 
-```js
+```javascript
 function curry(fn) {
   // 获得函数参数的数量
   const arity = fn.length;
@@ -298,7 +298,7 @@ function curry(fn) {
 
 当一个值要经过多个函数转换，才能变成另外一个值，就可以把这些函数合成一个函数。这样，这个值就只用通过复合后的函数转换一次，就可以获得对应结果了。
 
-```js
+```javascript
 // x 依次经过 add1、add2、add3 三个函数转换之后获得结果
 const x = 1;
 const x2 = add1(x); // 2
@@ -312,7 +312,7 @@ add6(x); // 7
 
 上面的过程就是函数复合，但是复合方法过于麻烦。我们希望实现一个 `compose` 函数来自动帮助我们方便得合成函数，期望的使用方式如下。
 
-```js
+```javascript
 // 满足 Pointfreee，没有描述处理的数据
 const add6 = compose(add1, add2, add3);
 add6(1); // 7
@@ -320,7 +320,7 @@ add6(1); // 7
 
 这样的写法不仅合成很方便，并且也满足了 Pointfree 这种风格：代码中不用描述数据。这样的风格可以让我们移除不必要的函数命名，也能保证函数的通用性。
 
-```js
+```javascript
 // 不是 Pointfree, x 就是数据
 const add6 = x => add1(add2(add3(x)));
 
@@ -332,7 +332,7 @@ const add6 = x => compose(add1, add2, add3)(x);
 
 了解函数合成的基本概念，我们来下面这种一种简单的实现。这里的函数都是只有一个参数和一个返回值，并且复合后它们是按照从左到右的顺序执行的。
 
-```js
+```javascript
 function compose(fn, ...rest) {
   return rest.reduce((total, cur) => (x) => cur(total(x)), fn);
 }
@@ -354,7 +354,7 @@ function compose(fn, ...rest) {
 
 具体的使用看下面的这个例子。
 
-```js
+```javascript
 import { createLinear } from "./scale";
 import { createCoordinate, transpose, cartesian } from './coordinate';
 
@@ -432,7 +432,7 @@ for (const { height, weight } of data) {
 
 这里先用平移变换来举例。
 
-```js
+```javascript
 import { translate } from './transforms';
 
 const map = translate(10, 10);
@@ -445,7 +445,7 @@ map.type(); // 'translate'
 
 通过平移变换的使用我们可以看出，不同的基本变换只是名字和变换函数不同，所以我们可以先抽象一个 `transform` 函数出来。
 
-```js
+```javascript
 // src/coordinate/transforms.js
 
 function transform(type, transformer) {
@@ -456,7 +456,7 @@ function transform(type, transformer) {
 
 这个基础上 `translate` 函数的实现如下。
 
-```js
+```javascript
 // src/coordinate/transforms.js
 
 export function translate(tx = 0, ty = 0) {
@@ -468,7 +468,7 @@ export function translate(tx = 0, ty = 0) {
 
 缩放变换的使用方法如下。
 
-```js
+```javascript
 import { scale } from './transforms';
 
 const map = scale(10, 10);
@@ -481,7 +481,7 @@ map.type(); // 'scale'
 
 缩放变换具体的实现如下。
 
-```js
+```javascript
 // src/coordinate/transforms.js
 
 export function scale(sx = 1, sy = 1) {
@@ -493,7 +493,7 @@ export function scale(sx = 1, sy = 1) {
 
 反射变换是一种特殊的缩放变换，它在两个维度的放缩比例都是 \-1。
 
-```js
+```javascript
 import { reflect } from './transforms';
 
 const map = reflect();
@@ -504,7 +504,7 @@ map.type(); // 'reflect'
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ff4a5e7edc7d42218f1ec8fd9e9ed0c3~tplv-k3u1fbpfcp-zoom-1.image)
 
-```js
+```javascript
 // src/coordinate/transforms.js
 
 export function reflect() {
@@ -514,7 +514,7 @@ export function reflect() {
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/80c27b17c6a348b39b1e8f078020dd9b~tplv-k3u1fbpfcp-zoom-1.image)
 
-```js
+```javascript
 // src/coordinate/transforms.js
 
 export function reflectX() {
@@ -524,7 +524,7 @@ export function reflectX() {
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6e9ac7c681a6410e9024349f68f28c7a~tplv-k3u1fbpfcp-zoom-1.image)
 
-```js
+```javascript
 // src/coordinate/transforms.js
 
 export function reflectY() {
@@ -536,7 +536,7 @@ export function reflectY() {
 
 转置变换就是交换一个点的两个维度，可以理解为按照 `y = x` 这条直线对称。
 
-```js
+```javascript
 import { transpose } from './transforms';
 
 const map = transpose();
@@ -549,7 +549,7 @@ map.type(); // 'transpose'
 
 具体的实现如下：
 
-```js
+```javascript
 // src/coordinate/transforms.js
 
 export function transpose() {
@@ -573,7 +573,7 @@ export function transpose() {
 
 具体的实现如下：
 
-```js
+```javascript
 // src/coordinate/transforms.js
 
 export function polar() {
@@ -601,7 +601,7 @@ Cooridante 里的笛卡尔坐标系变换是将统计学上的点线性转换成
 
 它的使用方法如下：
 
-```js
+```javascript
 import { cartesian } from './cartesian';
 
 const canvasOptions = {
@@ -625,13 +625,13 @@ map([1, 1]); // [600, 400]
 
 这个时候就需要延迟函数的执行，只有当 `transformOptions` 和 `canvasOptions` 都被传入的时候才执行该函数。这久可以用到我们前面提到的函数柯里化了。柯里化后的 `cartesian` 就可以如下使用。
 
-```js
+```javascript
 const transforms = cartesian()(canvasOptions);
 ```
 
 笛卡尔坐标系变换的实现如下：
 
-```js
+```javascript
 // src/coordinate/cartesian.js
 
 import { curry } from '../utils';
@@ -652,7 +652,7 @@ export const cartesian = curry(coordinate);
 
 当然这里使用的 `curry` 会和之前提到的有一点不一样：当不传入参数的时候，需要等价于传入了 `undefined` 参数。也就是在使用柯里化后的 `cartesian` 函数的时候 `cartesian()` 等价于`caresian(undefined)`。
 
-```js
+```javascript
 // src/utils/helper.js
 
 export function curry(fn) {
@@ -682,7 +682,7 @@ export function curry(fn) {
 
 代码实现如下：
 
-```js
+```javascript
 // src/coordinate/polar.js
 
 import {
@@ -739,7 +739,7 @@ export const polar = curry(coordinate);
 
 前面我们提到，坐标系本身是一个函数，它会将我们输入的点进行一系列坐标变换，然后得到该点在画布上的坐标。这个场景就是一个使用函数复合的典型场景：将一系列变换合成一个复合变换。具体的实现如下。
 
-```js
+```javascript
 // src/coordinate/coordinate.js
 
 import { compose } from '../utils';
@@ -781,7 +781,7 @@ export function createCoordinate({
 
 Sparrow 中使用的 `compose` 的功能会和之前介绍的有一点不同：当没有参数传入的时候，会返回一个 `identity` 函数。
 
-```js
+```javascript
 const identity = compose();
 identity(1); // 1
 identity(2); // 2
@@ -789,7 +789,7 @@ identity(2); // 2
 
 所以这里的 `compose` 的实现会和之前有些略微的不同。
 
-```js
+```javascript
 // src/utils/helper.js
 
 export function identity(x) {
@@ -803,7 +803,7 @@ export function compose(...fns) {
 
 最后不要忘记将我们需要的东西导出。
 
-```js
+```javascript
 // src/coordinate/index.js
 
 export { createCoordinate } from './coordinate';

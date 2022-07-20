@@ -20,7 +20,7 @@
 
 如果学过 `JAVA` 的同学应该会比较熟悉，但如果是前端同学刚刚接触的话，可能会比较陌生，一时间难以上手。纯文字版本的解释难免晦涩，接下来我们用一个简单的小列子来解释 **IoC** 容器的使用：
 
-```js
+```javascript
 class A {
   constructor(params) {
     this.params = params
@@ -43,7 +43,7 @@ new B('hello').run();
 
 为了解决这个情况，我们可以引入一个 **IoC** 容器：
 
-```js
+```javascript
 class A {
   constructor(params) {
     this.params = params
@@ -190,7 +190,7 @@ src
 
 #### 第一个 http 请求
 
-再依赖安装完毕之后，可以使用如下命令启动 `NestJS` 应用，然后浏览器即可访问 <http://localhost:3000/> ：出现如下界面即代表项目已经正常启动了。
+再依赖安装完毕之后，可以使用如下命令启动 `NestJS` 应用，然后浏览器即可访问 `http://localhost:3000/` ：出现如下界面即代表项目已经正常启动了。
 
 ```
 $ npm run start
@@ -234,7 +234,7 @@ export class UserController {
 }
 ```
 
-等待程序重新编译运行完毕之后，在浏览器输入 <http://localhost:3000/user> 访问即可看到：【**你好，世界！**】
+等待程序重新编译运行完毕之后，在浏览器输入 `http://localhost:3000/user` 访问即可看到：【**你好，世界！**】
 
 ![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/309b5021d7514ac1ac16ee667c97485c~tplv-k3u1fbpfcp-watermark.image?)
 

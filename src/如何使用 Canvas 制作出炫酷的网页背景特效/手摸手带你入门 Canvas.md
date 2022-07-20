@@ -179,7 +179,7 @@ OMG ヽ\(；´Д｀\)ﾉ，怎么会是这个样子，我明明是要画一个�
 
 通常在创建好一个 Canvas 标签的时候，我们要做的第一步就是要先获取到这个 Canvas 的上下文对象：
 
-```js
+```javascript
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 ```
@@ -257,7 +257,7 @@ OMG ヽ\(；´Д｀\)ﾉ，怎么会是这个样子，我明明是要画一个�
 
 细心的小伙伴可能会发现我们改动了哪里：
 
-```js
+```javascript
 context.arc(100, 100, 1, 0, Math.PI * 2, true);
 ```
 
@@ -265,7 +265,7 @@ context.arc(100, 100, 1, 0, Math.PI * 2, true);
 
 先来看一下在获取完 Canvas 的上下文环境之后，我们又做了哪些操作：
 
-```js
+```javascript
 context.beginPath();       // 起始一条路径，或重置当前路径
 context.arc(100, 100, 1, 0, Math.PI * 2, true);  // 创建弧/曲线
 context.closePath();       // 创建从当前点回到起始点的路径
@@ -283,7 +283,7 @@ context.fill();            // 填充当前绘图（路径）
 
 `arc()` 方法创建弧/曲线（用于创建圆或部分圆）。
 
-```js
+```javascript
 context.arc(x,y,r,sAngle,eAngle,counterclockwise);
 ```
 
@@ -299,7 +299,7 @@ context.arc(x,y,r,sAngle,eAngle,counterclockwise);
 
 比如我们想画一个顺时针的四分之一圆，应该怎么写呢？
 
-```js
+```javascript
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     var cx = canvas.width = 400;
@@ -338,7 +338,7 @@ context.arc(x,y,r,sAngle,eAngle,counterclockwise);
 
 下面我们来绘制一条线。
 
-```js
+```javascript
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     var cx = canvas.width = 400;
@@ -367,7 +367,7 @@ context.arc(x,y,r,sAngle,eAngle,counterclockwise);
 
 也就是这种情况：
 
-```js
+```javascript
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     var cx = canvas.width = 400;
@@ -424,7 +424,7 @@ context.arc(x,y,r,sAngle,eAngle,counterclockwise);
 
 在了解了最基本的绘制点、线的方法之后，我们来看一下如何绘制一个矩形。
 
-```js
+```javascript
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     var cx = canvas.width = 400;
@@ -533,7 +533,7 @@ context.arc(x,y,r,sAngle,eAngle,counterclockwise);
 
 我们可以设置多个颜色断点，比如，要实现一个彩虹的效果，只需要多增加几个颜色断点就可以了\~
 
-```js
+```javascript
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     var cx = canvas.width = 400;
@@ -574,7 +574,7 @@ context.arc(x,y,r,sAngle,eAngle,counterclockwise);
 
 我们来看一下怎么使用 Canvas 实现缩放的功能，绘制一个矩形；放大到 200\%，再次绘制矩形；放大到 200\%，然后再次绘制矩形；放大到 200\%，再次绘制矩形：
 
-```js
+```javascript
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     var cx = canvas.width = 400;
@@ -598,7 +598,7 @@ context.arc(x,y,r,sAngle,eAngle,counterclockwise);
 
 其实在图形变换中，只要掌握了一种，其他的图形变换方式就会迎刃而解了。我们再来看一下旋转的例子吧。
 
-```js
+```javascript
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     var cx = canvas.width = 400;

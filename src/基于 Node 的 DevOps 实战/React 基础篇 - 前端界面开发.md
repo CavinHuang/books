@@ -30,7 +30,7 @@
 
 小册将采用 UmiJS 3.0 + Ant Design Pro 4.0 来构建一个基础的模板。
 
-```js
+```javascript
 yarn create umi
 
  Select the boilerplate type (Use arrow keys)
@@ -140,7 +140,7 @@ export default { b: 'cloud', c: 'cloud' };
 
 改造 `utils/request` 模块
 
-```js
+```javascript
 /**
  * 异常处理程序
  */
@@ -183,7 +183,7 @@ export default request;
 
 改造 service 模块
 
-```js
+```javascript
 import request from '@/utils/request';
 
 export interface LoginParamsType {
@@ -218,7 +218,7 @@ export async function fakeAccountLogin(params: LoginParamsType) {
 
 客户端代码
 
-```js
+```javascript
 <a href='http://192.168.160.88:8888/oauth/authorize?client_id=CLIENT_ID&redirect_uri=http://127.0.0.1:7001/user/getTokenByApp&response_type=code' >
 <GitlabOutlined className={styles.icon} />
 </a>
@@ -226,7 +226,7 @@ export async function fakeAccountLogin(params: LoginParamsType) {
 
 服务端代码
 
-```js
+```javascript
  @Get("/getTokenByApp")
   public async getTokenByApplications({
     request: {
@@ -275,7 +275,7 @@ export async function fakeAccountLogin(params: LoginParamsType) {
 
 #### socket.io-client 客户端配置
 
-```js
+```javascript
 window.onload = function () {
   // init
   const socket = io('http://127.0.0.1:7001', {

@@ -53,7 +53,7 @@ module.exports = {
 
 由于部分 TS ESLint 的规则和 ESLint 中基础的规则有冲突，我们需要修改配置文件的规则，最终的基本示例如下：
 
-```js
+```javascript
 module.exports = {
   root: true,
   extends: [
@@ -124,7 +124,7 @@ pnpm install prettier eslint-config-prettier --save-dev
 
 创建 Prettier 配置文件 .prettierrc.js，我们选择一小部分常用的：
 
-```js
+```javascript
 module.exports = {
   // 单行最多 80 字符
   printWidth: 80,
@@ -154,7 +154,7 @@ module.exports = {
 
 同时为了避免和 ESLint 冲突，我们还需要通过 `eslint-config-prettier` 禁用掉部分 ESLint 规则，修改 ESLint 配置：
 
-```js
+```javascript
 module.exports = {
   extends: [
     'plugin:react/recommended',
@@ -352,7 +352,7 @@ type LiteralBool = "true" | "false";
 
 - 配合 naming-convention 规则（检查接口是否按照规范命名），我们要求接口的名称需要以大写字母 `I` 开头，我们能够在看见 `IFoo` 时立刻知道它是一个 接口，看见 `Bar` 时立刻知道它是一个类型别名。额外配置如下：
 
-  ```js
+  ```javascript
   {
   "@typescript-eslint/naming-convention": [
     "error",

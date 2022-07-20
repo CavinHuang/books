@@ -26,7 +26,7 @@
 
 回调函数应该是大家经常使用到的，以下代码就是一个回调函数的例子：
 
-```js
+```javascript
 ajax(url, () => {
     // 处理逻辑
 })
@@ -34,7 +34,7 @@ ajax(url, () => {
 
 但是回调函数有一个致命的弱点，就是容易写出回调地狱（Callback hell）。假设多个请求存在依赖性，你可能就会写出如下代码：
 
-```js
+```javascript
 ajax(url, () => {
     // 处理逻辑
     ajax(url1, () => {
@@ -48,7 +48,7 @@ ajax(url, () => {
 
 以上代码看起来不利于阅读和维护，当然，你可能会想说解决这个问题还不简单，把函数分开来写不就得了
 
-```js
+```javascript
 function firstAjax() {
   ajax(url1, () => {
     // 处理逻辑
@@ -83,7 +83,7 @@ ajax(url, () => {
 
 `Generator` 算是 ES6 中难理解的概念之一了，`Generator` 最大的特点就是可以控制函数的执行。在这一小节中我们不会去讲什么是 `Generator`，而是把重点放在 `Generator` 的一些容易困惑的地方。
 
-```js
+```javascript
 function *foo(x) {
   let y = 2 * (yield (x + 1))
   let z = yield (y / 3)
@@ -105,7 +105,7 @@ console.log(it.next(13)) // => {value: 42, done: true}
 
 `Generator` 函数一般见到的不多，其实也于他有点绕有关系，并且一般会配合 co 库去使用。当然，我们可以通过 `Generator` 函数解决回调地狱的问题，可以把之前的回调地狱例子改写为如下代码：
 
-```js
+```javascript
 function *fetch() {
     yield ajax(url, () => {})
     yield ajax(url1, () => {})
@@ -143,7 +143,7 @@ new Promise((resolve, reject) => {
 
 当我们在构造 `Promise` 的时候，构造函数内部的代码是立即执行的
 
-```js
+```javascript
 new Promise((resolve, reject) => {
   console.log('new Promise')
   resolve('success')
@@ -154,7 +154,7 @@ console.log('finifsh')
 
 `Promise` 实现了链式调用，也就是说每次调用 `then` 之后返回的都是一个 `Promise`，并且是一个全新的 `Promise`，原因也是因为状态不可变。如果你在 `then` 中 使用了 `return`，那么 `return` 的值会被 `Promise.resolve()` 包装
 
-```js
+```javascript
 Promise.resolve(1)
   .then(res => {
     console.log(res) // => 1
@@ -167,7 +167,7 @@ Promise.resolve(1)
 
 当然了，`Promise` 也很好地解决了回调地狱的问题，可以把之前的回调地狱例子改写为如下代码：
 
-```js
+```javascript
 ajax(url)
   .then(res => {
       console.log(res)
@@ -188,7 +188,7 @@ ajax(url)
 
 一个函数如果加上 `async` ，那么该函数就会返回一个 `Promise`
 
-```js
+```javascript
 async function test() {
   return "1"
 }
@@ -197,7 +197,7 @@ console.log(test()) // -> Promise {<resolved>: "1"}
 
 `async` 就是将函数返回值使用 `Promise.resolve()` 包裹了下，和 `then` 中处理返回值一样，并且 `await` 只能配套 `async` 使用
 
-```js
+```javascript
 async function test() {
   let value = await sleep()
 }
@@ -205,7 +205,7 @@ async function test() {
 
 `async` 和 `await` 可以说是异步终极解决方案了，相比直接使用 `Promise` 来说，优势在于处理 `then` 的调用链，能够更清晰准确的写出代码，毕竟写一大堆 `then` 也很恶心，并且也能优雅地解决回调地狱问题。当然也存在一些缺点，因为 `await` 将异步代码改造成了同步代码，如果多个异步代码没有依赖性却使用了 `await` 会导致性能上的降低。
 
-```js
+```javascript
 async function test() {
   // 以下代码没有依赖性的话，完全可以使用 Promise.all 的方式
   // 如果有依赖性的话，其实就是解决回调地狱的例子了
@@ -217,7 +217,7 @@ async function test() {
 
 下面来看一个使用 `await` 的例子：
 
-```js
+```javascript
 let a = 0
 let b = async () => {
   a = a + await 10
@@ -246,7 +246,7 @@ console.log('1', a) // -> '1' 1
 
 其实这个观点是错误的，因为 JS 是单线程执行的，如果前面的代码影响了性能，就会导致 `setTimeout` 不会按期执行。当然了，我们可以通过代码去修正 `setTimeout`，从而使定时器相对准确
 
-```js
+```javascript
 let period = 60 * 1000 * 60 * 2
 let startTime = new Date().getTime()
 let count = 0
@@ -280,7 +280,7 @@ setTimeout(loop, currentInterval)
 
 通常来说不建议使用 `setInterval`。第一，它和 `setTimeout` 一样，不能保证在预期的时间执行任务。第二，它存在执行累积的问题，请看以下伪代码
 
-```js
+```javascript
 function demo() {
   setInterval(function(){
     console.log(2)
@@ -294,7 +294,7 @@ demo()
 
 如果你有循环定时器的需求，其实完全可以通过 `requestAnimationFrame` 来实现
 
-```js
+```javascript
 function setInterval(callback, interval) {
   let timer
   const now = Date.now

@@ -28,7 +28,7 @@
 
 如果用代码把上面的功能如下描述：
 
-```js
+```javascript
 function scale(value) {
   return value === 'male' ? 'red': 'green';
 }
@@ -43,7 +43,7 @@ scale('female'); // 'green'
 
 上面的 sex 和 颜色都是分类属性，所以会使用到我们之后要介绍的 Ordinal 比例尺，具体的使用方式如下。
 
-```js
+```javascript
 // 根据 options 返回一个函数
 const scale = createOrdinal({
   domain: ['male', 'female'], // 定义域
@@ -66,7 +66,7 @@ scale('female'); // 'green'
 
 Identity 比例尺的使用方式如下，它能保证输入和输出总是保持一致。
 
-```js
+```javascript
 // Identity 是恒等映射，所以不需要指定定义域和值域
 const scale = createIdentity();
 
@@ -77,7 +77,7 @@ scale('sparrow'); // 'sparrow'
 
 不难发现 Identity 比例尺可以表示为：`y = x`，而它的实现也非常的简单。
 
-```js
+```javascript
 // src/scale/identity.js
 
 export function createIdentity() {
@@ -103,7 +103,7 @@ Linear 比例尺常常用于视觉元素的布局，比如在做散点图的时�
 
 它期望的使用方式如下：
 
-```js
+```javascript
 const scale = createLinear({
   domain: [0, 1], // 输入的范围是 [0, 1]
   range: [0, 10], // 输出的范围是 [0, 10]
@@ -117,7 +117,7 @@ scale(0.5); // 5
 
 基于这个发现我们首先通过计算出输入在定义域的位置（归一化），然后根据这个结果在值域计算出相应的输出（插值），具体实现如下。
 
-```js
+```javascript
 // src/scale/linear.js
 
 import { normalize } from './utils';
@@ -140,7 +140,7 @@ export function interpolateNumber(t, start, stop) {
 }
 ```
 
-```js
+```javascript
 // src/scale/utils.js
 
 export function normalize(value, start, stop) {
@@ -154,7 +154,7 @@ export function normalize(value, start, stop) {
 
 如果将上面的数值插值器（interpolateNumber）换成颜色插值器的话，就会得到以下的效果，可以发现颜色是均匀变化的。
 
-```js
+```javascript
 import { interpolateNumber } from './linear';
 
 const scale = createLinear({
@@ -180,7 +180,7 @@ function interolateColor(t, start, stop) {
 
 介绍完 Linear 比例尺的映射功能，接下来我们来看看它生成坐标刻度的方法。下面我们首先来看看一个简单版本，看看它有啥问题。
 
-```js
+```javascript
 // min: 定义域的最小值
 // max: 定义域的最大值
 // count: 坐标刻度的数量
@@ -196,14 +196,14 @@ function simpleTicks(min, max, count) {
 
 上面的代码非常直觉，现在让我们来看看它的效果。
 
-```js
+```javascript
 const ticks = simpleTicks(0.1, 9.9, 6);
 ticks // [0.1, 1.7333333333333336, 3.366666666666667, 5, 6.633333333333334, 8.266666666666667]
 ```
 
 `simpleTicks` 方法确实按照要求生成了6个刻度，但是可读性太差：全是小数，那如果我们将这些刻度格式化一下呢？
 
-```js
+```javascript
 ticks.map(d => parseFloat(d.toFixed(1)));
 ticks; // [0.1, 1.7, 3.4, 5, 6.6, 8.3];
 ```
@@ -214,7 +214,7 @@ ticks; // [0.1, 1.7, 3.4, 5, 6.6, 8.3];
 
 获得上述刻度间隔的实现方式如下，该实现是来自于 [d3-array](https://github.com/d3/d3-array/blob/main/src/ticks.js#L46)。
 
-```js
+```javascript
 // src/scale/utils.js
 
 // step0 是生成指定数量的刻度的间隔
@@ -262,7 +262,7 @@ export function tickStep(min, max, count) {
 
 在这个 `tickStep` 的基础上我们可以获取如下的获得刻度的方法。
 
-```js
+```javascript
 // src/scale/utils.js
 
 export function ticks(min, max, count) {
@@ -289,13 +289,13 @@ export function round(n) {
 
 下面来看看 `ticks` 方法获得的效果。
 
-```js
+```javascript
 ticks(0.1, 9.9, 6); // [2, 4, 6, 8]
 ```
 
 现在发现生成的刻度不仅是均匀的，而且拥有很不错的可读性！但是美中不足的是定义域 `[0.1, 9.9]` 本身的可读性不是很强，但如果我们能根据刻度间隔去调整定义域的范围，使得最小值和最大值都是刻度间隔的整数倍，又会发生什么？这就是 `nice` 操作，具体的实现如下。
 
-```js
+```javascript
 // src/scale/utils.js
 
 export function nice(domain, interval) {
@@ -314,7 +314,7 @@ export function floor(n, base) {
 
 我们可以如下使用上面新增的函数，可以发现改算法根据刻度间隔`2`去调整了定义域，使得其从`[0.1, 9.9]`变成了`[0, 10]`，从而生成了`[0, 2, 4, 6, 8]`这样可读性更强的刻度。
 
-```js
+```javascript
 let d0 = 0.1;
 let d1 = 9.9;
 const step = tickStep(d0, d1, tickCount);
@@ -330,7 +330,7 @@ ticks(d0, d1, 6); // [0, 2, 4, 6, 8]
 
 因为上面的 `ticks` 以及 `nice` 和 Linear 比例尺是强相关的，所以我们把它们作为 Linear 的两个方法，最后 Linear 比例尺的实现如下。
 
-```js
+```javascript
 // src/scale/linear.js
 
 import {
@@ -372,7 +372,7 @@ Linear 比例尺要求定义域都是数字，但是有的时候我们希望定�
 
 比如我们在做折线图的时候，希望把和时间相关的属性映射为折线图的 x 坐标，我们就会如下使用 Time 比例尺。
 
-```js
+```javascript
 const map = createTime({
   domain: [new Date(2000, 0, 1), new Date(2000, 0, 2)],
   range: [0, 960],
@@ -385,7 +385,7 @@ map(new Date(2000, 0, 2)); // 960
 
 根据上面的描述，其实不难看出 Time 比例尺的表达式 `y = a * f(x) + b`中的 `f(x)` 应该为 `f(x) = x.getTime()`。所以我们可以在 Linear 比例尺的基础上如下实现 Time 比例尺。
 
-```js
+```javascript
 // src/scale/time.js
 
 import { createLinear } from './linear';
@@ -435,7 +435,7 @@ Ordinal 比例尺和开篇提到的一样，值域和定义域都是序数，主
 
 把上图的映射过程用代码描述如下：
 
-```js
+```javascript
 const scale = createOrdinal({
   domain: ["苹果", "香蕉", "梨", "西瓜"],
   range: ['red', 'yellow', 'green'],
@@ -449,7 +449,7 @@ scale("西瓜"); // 'red'
 
 实现的思路也很简单：首先从定义域中找到输入对应的索引，然后返回值域中对应索引的元素。
 
-```js
+```javascript
 // src/scale/ordinal.js
 
 export function createOrdinal({ domain, range }) {
@@ -461,7 +461,7 @@ export function createOrdinal({ domain, range }) {
 }
 ```
 
-```js
+```javascript
 // src/scale/utils.js
 
 // 通过对象序列化结果简单判断两个对象是否相等
@@ -480,7 +480,7 @@ Ordinal 比例尺要求值域必须是序数的，如果值域是数值类型的
 
 把上图的映射过程用代码描述如下：
 
-```js
+```javascript
 const options = {
   domain: ["苹果", "香蕉", "梨"],
   range: [0, 320], // 上图中 width 的范围
@@ -495,14 +495,14 @@ scale("梨"); // 220
 
 当然我们除了如上需要通过 Band 比例尺获得条的位置，还需要如下获得条的 BandWidth 和 Step。
 
-```js
+```javascript
 scale.bandWidth(); // 80
 scale.step(); // 100
 ```
 
 根据上面的介绍，发现 Band 比例尺可以直接基于 Ordinal 比例尺实现，只不过我们需要将其本身的值域进行转换，转换成间距相等的几个值。具体的实现方法如下：
 
-```js
+```javascript
 // src/scale/band.js
 
 import { createOrdinal } from './ordinal';
@@ -519,7 +519,7 @@ export function createBand(options) {
 }
 ```
 
-```js
+```javascript
 // src/scale/utils.js
 
 export function band({ domain, range, padding }) {
@@ -545,7 +545,7 @@ export function band({ domain, range, padding }) {
 
 Point 比例尺主要用于散点图，它的使用方式如下：
 
-```js
+```javascript
 const options = {
   domain: ["苹果", "香蕉", "梨"],
   range: [0, 320], 
@@ -559,7 +559,7 @@ scale("梨"); // 240
 
 Point 的比例尺可以基于 Ordinal 如下简单得实现。
 
-```js
+```javascript
 // src/scale/point.js
 
 import { createBand } from './band';
@@ -577,7 +577,7 @@ export function createPoint(options) {
 
 首先我们可以先用如下 Linear 比例尺来看看效果。
 
-```js
+```javascript
 const scale = createLinear({
   domain: [0, 300577],
   range: ['white', 'red'],
@@ -595,7 +595,7 @@ const scale = createLinear({
 
 首先是 Threshold 比例尺，它的定义域是连续的，并且会被指定的分割值分成不同的组，它的使用方式如下。
 
-```js
+```javascript
 const scale = createThreshold({
   domain: [10000, 100000], // 1000, 100000 就是两个分割值
   range: ["white", "pink", "red"],
@@ -614,7 +614,7 @@ const scale = createThreshold({
 
 根据上面的介绍，以下 Threshold 比例尺的实现也不难理解了。
 
-```js
+```javascript
 // src/scale/threshold.js
 
 export function createThreshold({ domain, range }) {
@@ -630,7 +630,7 @@ export function createThreshold({ domain, range }) {
 
 相对于 Threshold 比例尺需要我们指定分割值，Quantize 比例尺会根据数据的范围帮我们选择分割值，从而把定义域分成间隔相同的组。
 
-```js
+```javascript
 // 因为 range 有3个值，所以 domain 会被分成三等份，
 // 并且按照如下的规则映射
 // [0, 300577 / 3) -> "white"
@@ -650,7 +650,7 @@ const scale = createQuantize({
 
 根据上面的描述，实现 Quantize 比例尺的关键就是计算得到分割值，然后在这个基础之使用 Threahold 比例尺即可，具体的实现如下。
 
-```js
+```javascript
 // src/scale/quantize.js
 
 import { createThreshold } from "./threshold";
@@ -667,7 +667,7 @@ export function createQuantize({ domain: [d0, d1], range, ...rest }) {
 
 和 Quantize 比例尺不同是，Quantile 比例尺采用了另外得到分割值的策略： 根据数据出现的频率分组。
 
-```js
+```javascript
 // 首先把会 salary 按照升序排序
 // 因为一共有100条数据，所以
 // 前33条数据会被映射为 "white"
@@ -691,7 +691,7 @@ const scale = createQuantile({
 
 类似于 Quantize 比例尺，我们在实现 Quantile 比例尺的时候也需要计算对应的分割值，具体的计算方式如下。
 
-```js
+```javascript
 // src/scale/quantile.js
 
 import { createThreshold } from "./threshold";
@@ -718,7 +718,7 @@ export function createQuantile({ domain, range, ...rest }) {
 
 Log 比例尺的表达式 `y = a * f(x) + b`中的 `f(x)` 应该为 `f(x) = Math.log(x)`， 这里只需要考虑 x 大于零的情况。对于 Log 比例尺来说，可读性较强的刻度就是指定 base 的指数。
 
-```js
+```javascript
 import { createLog } from './log.js';
 
 const scale = createLog({
@@ -737,7 +737,7 @@ sclae.ticks(5); // [8, 16, 32, 64, 128];
 
 当我们实现了 Log 比例尺之后，我们就把常用的、Sparrow 后面会用到的比例尺都开发完成了，是不是觉得收获满满？最后把它们全部导出即可。
 
-```js
+```javascript
 // src/scale/index.js
 
 export { createLinear, interpolateNumber } from './linear';
@@ -764,7 +764,7 @@ export { createLog } from './log';
 
 比如在目前 Ordinal 比例尺的实现中，找到 index 的算法的时间复杂度是 `O(n)`：和定义域的数据规模呈线性相关。
 
-```js
+```javascript
 export function createOrdinal({ domain, range }) {
   return (x) => {
     // findIndex 的每次都会遍历一次 domain
@@ -776,7 +776,7 @@ export function createOrdinal({ domain, range }) {
 
 这在数据量大的情况下这是不可接受的，但是它经过如下的优化就可以变成时间复杂度为 `O(1)` 的算法。
 
-```js
+```javascript
 export function createOrdinal({ domain, range }) {
   const indexMap = new Map(domain.map((d, i) => [d, i]));
   return (x) => {

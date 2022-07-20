@@ -58,7 +58,7 @@ $ npm init -y  // 初始化 package.json
 
 对应的 `./bin/index.js` 文件中需要添加一下这样的声明：
 
-```js
+```javascript
 #!/usr/bin/env node
 ```
 
@@ -106,7 +106,7 @@ $ coco create coco-template-test
 
 这样的命令来实现一个 `coco-template-test` 模板的创建。这里就需要用到 `commander` 来进行命令行输入参数解析：
 
-```js
+```javascript
 program
   .command('create [template]')
   .description('generator a new template')
@@ -117,7 +117,7 @@ program
 
 然后我们再定义 `generate` 的实现：
 
-```js
+```javascript
 // 获取模板信息
 async function getTemplateInfo() {
   return await inquirer.prompt([
@@ -189,7 +189,7 @@ async function generate(name){
 
 利用 `download-git-repo` 来下载远程模板：
 
-```js
+```javascript
 const download = require('download-git-repo');
 
 async function downLoadTemplate(repository, projectName, clone) {
@@ -211,7 +211,7 @@ async function downLoadTemplate(repository, projectName, clone) {
 
 在用户输入之后，开始下载模板，这时候使用 `ora` 来提示用户正在下载模板，下载结束之后，也给出提示。
 
-```js
+```javascript
 const ora = require('ora');
 
 const spinner = ora('🗃 开始下载模版...')
@@ -230,7 +230,7 @@ spinner.succeed('🎉 模版下载完成');
 
 首先，我们先定义好需要开发的命令：
 
-```js
+```javascript
 program
   .command('release')
   .description('发布模板')
@@ -241,7 +241,7 @@ program
 
 当我们的模板开发完毕时，我们需要将模板提交到编辑器后台管理页中，用于运营选择我们的模板。这里其实也就是干2件事，第一步先生成开发好的模板的缩略图，第二步就是将我们的 `coco.config.js` 文件提交到 `server` 端。这样我们的编辑后台就可以通过 `query` 来查询 `server` 获取模板信息：
 
-```js
+```javascript
 async function releaseTemplate({
   snapshot,
   nameSpace,
@@ -282,7 +282,7 @@ async function releaseTemplate({
 
 对于组件发布，则稍微麻烦一点，组件是在 `packages` 目录下按目录维度存储的，所以我们需要遍历组件目录，然后找到对应组件配置和缩略图进行上传：
 
-```js
+```javascript
 async function releaseComponents({ context, webDomian, nameSpace, gitUrl, name, baseApi }) {
   const sh = new Shell();
   const config = {
@@ -324,7 +324,7 @@ async function releaseComponents({ context, webDomian, nameSpace, gitUrl, name, 
 
 初始化配置工作是为了对一些不是用 `coco create` 创建的项目，进行配置文件初始化的工作。按照上面的介绍，第一步先接受命令的输入：
 
-```js
+```javascript
 program
   .command('init')
   .description('初始化 coco config 配置文件')
@@ -333,7 +333,7 @@ program
 
 然后定义 `initial` 功能的实现，通过检测当前目录下是否已经存在 `coco.config.js` 来给用户进行是否覆盖的提示选择：
 
-```js
+```javascript
 module.exports = function(){
   // 配置文件如果存在则提示是否覆盖
   if(fs.existsSync(path.resolve('coco.config.js'))){
@@ -373,7 +373,7 @@ module.exports = function(){
 
 如果选择确定生成 `coco.config.js` 最后只需要将我们定义好的模板文件，`copy` 到当前目录即可:
 
-```js
+```javascript
 const figlet = require('figlet');
 
 function copyCocoConfigJS(){

@@ -32,7 +32,7 @@
 
 拉取也就是去指定模板仓库中通过 [download-git-repo](https://www.npmjs.com/package/download-git-repo) 插件进行拉取模板。编译其实也就是通过 [metalsmith](https://github.com/segmentio/metalsmith) 静态模板生成器把模板作为输入，数据作为填充，按照 [handlebars](https://handlebarsjs.com/) 的语法进行规则渲染。最后产出build构建好的目录。在这一步，我们之前所需的组件，会被渲染进 `package.json` 文件。我们来看一下核心代码：
 
-```js
+```javascript
 // 这里就像一个管道，以数据入口为生成源，通过renderTemplateFiles编译产出到目标目录
 function build(data, temp_dest, source, dest, cb) {
   let metalsmith = Metalsmith(temp_dest)
@@ -87,7 +87,7 @@ function renderTemplateFiles(data) {
 
 所以 server 端的代码就可以简化成这样：
 
-```js
+```javascript
 // 注入数据
 const res = fs.readFileSync(`${temp_dest}/dist/index.html`, 'utf-8');
 let target = res.replace(

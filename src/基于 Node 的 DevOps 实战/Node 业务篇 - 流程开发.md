@@ -19,13 +19,13 @@
  1.     `egg-cors` - 跨域包
  2.     `egg-jwt` - token 生成以及验证包
 
-```js
+```javascript
 npm install egg-cors egg-jwt --save
 ```
 
 在 `app/config/plugin.ts` 文件配置开启插件
 
-```js
+```javascript
 import { EggPlugin } from "egg";
 
 const plugin: EggPlugin = {
@@ -45,7 +45,7 @@ export default plugin;
 
 在 `app/config/config.default.ts` 配置插件属性
 
-```js
+```javascript
 import { EggAppConfig, EggAppInfo, PowerPartial } from "egg";
 
 export default (appInfo: EggAppInfo) => {
@@ -74,7 +74,7 @@ export default (appInfo: EggAppInfo) => {
 
 新建文件 `app/middleware/jwt_auth.ts`，将下述代码复制进去。
 
-```js
+```javascript
 const excludeUrl = ["/user/getUserToken"]; // 请求白名单，过滤不需要校验的请求路径，例如登录、或其他不需要鉴权等接口。
 
 export default () => {
@@ -114,7 +114,7 @@ export default () => {
 
 在 `app/config/config.default.ts` 添加自定义中间件配置
 
-```js
+```javascript
   config.middleware = ["jwtAuth"];
   config.jwtAuth = {};
 ```
@@ -125,7 +125,7 @@ export default () => {
 
 新建 `app/controller/user.ts`
 
-```js
+```javascript
 import { Post, Prefix } from "egg-shell-decorators";
 import BaseController from "./base";
 
@@ -168,7 +168,7 @@ export default class UserController extends BaseController {
 
 新建 `app/service/user.ts`
 
-```js
+```javascript
 import { Service } from "egg";
 
 export default class User extends Service {

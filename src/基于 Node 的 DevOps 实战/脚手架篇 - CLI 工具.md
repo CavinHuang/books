@@ -57,7 +57,7 @@
 
 CLI 工具开发将使用 TS 作为开发语言，如果此时还没有接触过 TS 的同学，刚好可以借此项目来熟悉一下 TS 的开发模式。
 
-```js
+```javascript
 mkdir cli && cd cli // 创建仓库目录
 npm init // 初始化 package.json
 npm install -g typescript // 安装全局 TypeScript
@@ -129,7 +129,7 @@ export const loggerError = (str: string = '') => {
 
 因为是从 0 开发 CLI 工具，可以先从简单的功能入手，例如开发一个 Eslint 校验模块。
 
-```js
+```javascript
 npm install eslint --save-dev // 安装 eslint 依赖
 npx eslint --init // 初始化 eslint 配置
 ```
@@ -171,7 +171,7 @@ npx eslint --init // 初始化 eslint 配置
 
 将前面生成的 .eslintrc.json 的配置项按需加入，同时使用 `useEslintrc:false` 禁止使用项目本身的 .eslintrc 配置，仅使用 CLI 提供的规则去校验项目代码。
 
-```js
+```javascript
 import { ESLint } from 'eslint'
 import { getCwdPath, loggerTiming, loggerSuccess, loggerError, getDirPath } from '../util'
 
@@ -305,7 +305,7 @@ program.parse(process.argv);
 
 > 一般来说，构建工具替换不会影响业务代码，如果业务代码被构建工具绑架，建议还是需要去优化一下代码了。
 
-```js
+```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 interface IWebpack {
@@ -406,7 +406,7 @@ export default ({
 
 上述是一份简化版本的 webpack 5 配置，再添加对应的 commander 命令。
 
-```js
+```javascript
 program
   .version('0.1.0')
   .description('start eslint and fix code')
@@ -436,7 +436,7 @@ program
 
 Webpack 配置项新增下述两项，指定依赖跟 loader 的加载路径，不从项目所在 node\_modules 读取，而是读取 CLI 所在的 node\_modules。
 
-```js
+```javascript
 resolveLoader: {
   modules: ['node_modules', getDirPath('../../node_modules')]
 }, // 修改 loader 依赖路径
@@ -449,7 +449,7 @@ resolve: {
 
 同时将 babel 的 presets 模块路径修改为绝对路径，指向 CLI 的 node\_modules（presets 会默认从启动路劲读取依赖）。
 
-```js
+```javascript
 {
     test: /\.(js|jsx)$/,
     use: {

@@ -236,7 +236,7 @@ const { paginationDefine } = require('../utils/router-helper');
 
 ```
 
-通过 Swagger 文档工具 <http://localhost:3000/documentation> 查看店铺列表的接口调用返回数据，结果应该和下图相仿：
+通过 Swagger 文档工具 `http://localhost:3000/documentation` 查看店铺列表的接口调用返回数据，结果应该和下图相仿：
 
 ![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/8/19/165528f7aa0b42c3~tplv-t2oaga2asx-image.image)
 

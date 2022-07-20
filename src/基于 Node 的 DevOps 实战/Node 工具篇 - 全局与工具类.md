@@ -14,7 +14,7 @@
 
 上一章中，用户的业务 Controller 是继承了 BaseController 而不是直接继承 Egg 的 Controller，这是因为使用了运用继承的原理，对 Controller 做一层基础的封装，内置一些常用的功能，比如获取用户信息、全局返回参数等。
 
-```js
+```javascript
 import { Controller } from "egg";
 
 export default class BaseController extends Controller {
@@ -52,7 +52,7 @@ export default class BaseController extends Controller {
 
 Egg 框架自带的 onerror 插件支持自定义配置错误处理方法，可以覆盖默认的错误处理方法，需要的话可以根据实际业务重写。
 
-```js
+```javascript
 // config/config.default.js
 module.exports = {
   onerror: {
@@ -82,7 +82,7 @@ module.exports = {
 
 新建文件 `app/middleware/error_handler.ts`, 复制下述代码
 
-```js
+```javascript
 export default class HttpExceptions extends Error { // 继承修改 error 类型
   code: number;
   msg: string;
@@ -151,7 +151,7 @@ export default () => {
 
 nodemailer 发送邮件工具类封装
 
-```js
+```javascript
 import { MAIL_CONFIG } from "../../config/default.config";
 
 const marked = require("marked"); // marked 转换
@@ -270,7 +270,7 @@ nunjucks 模板使用
 
 如果是企业微信用户的话，可以参考企业[微信机器人文档](https://work.weixin.qq.com/help?person_id=1&doc_id=13376)，两者使用原理差不多，都是通过 webhook 进行消息推送。
 
-```js
+```javascript
 const crypto = require("crypto");
 const secret ="";
 const sendUrl =""; // 替换成自己的
@@ -349,7 +349,7 @@ Sequelize 提供了 sequelize-cli 工具来实现 Migrations，可以在 egg 项
 
 根目录下新建 `.sequelizerc` 文件，复制下述代码
 
-```js
+```javascript
 use strict';
 const path = require('path');
 
@@ -363,14 +363,14 @@ module.exports = {
 
 执行下述命令后会生成 `database/config.json` 文件和 `database/migrations` 目录
 
-```js
+```javascript
 npx sequelize init:config
 npx sequelize init:migrations
 ```
 
 修改一下 database/config.json 中的内容，将其改成项目中使用的数据库配置：
 
-```js
+```javascript
 {
   "development": {
     "username": "root", // 之前安装的 mysql 的用户名密码
@@ -384,7 +384,7 @@ npx sequelize init:migrations
 
 再通过 `npx sequelize migration:generate \--name=init-users` 来创建用户表
 
-```js
+```javascript
 module.exports = { // 为了减少工作量，权限直接使用 gitlab 的，所以只需要落库以下字段
   up: async (queryInterface, Sequelize) => {
     const { INTEGER, DATE, STRING } = Sequelize;
@@ -407,7 +407,7 @@ module.exports = { // 为了减少工作量，权限直接使用 gitlab 的，�
 
 最后执行 migrate 进行数据库变更，将表推送到数据库中
 
-```js
+```javascript
 # 升级数据库
 npx sequelize db:migrate
 # 如果有问题需要回滚，可以通过 `db:migrate:undo` 回退一个变更
@@ -418,7 +418,7 @@ npx sequelize db:migrate
 
 `config/config.plugin.ts` 开启 sequelize 插件
 
-```js
+```javascript
   sequelize: {
     enable: true,
     package: "egg-sequelize",
@@ -427,7 +427,7 @@ npx sequelize db:migrate
 
 `config/config.default.ts` 文件添加 sequelize 配置
 
-```js
+```javascript
  // 数据库配置
   config.sequelize = {
     database: "devops_dev",
@@ -457,7 +457,7 @@ Service 层的官方定义如下：
 
 新建 `app/model/user.ts` 文件
 
-```js
+```javascript
 export default (app) => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
   const User = app.model.define("user", {
@@ -476,7 +476,7 @@ export default (app) => {
 
 修改 `app/controller/user.ts` 文件
 
-```js
+```javascript
 import { Post, Prefix } from "egg-shell-decorators";
 import BaseController from "./base";
 
@@ -525,7 +525,7 @@ export default class UserController extends BaseController {
 
 修改 `app/service/user.ts`
 
-```js
+```javascript
 import { Service } from "egg";
 
 export default class User extends Service {
@@ -592,7 +592,7 @@ export default class User extends Service {
 
 上述的方法合并一下，将 findOne 方法修改成 findOrCreate，当查询用户数据不存在时就创建，存在时就直接返回查询出来的用户信息。
 
-```js
+```javascript
 ctx.model.User.findOrCreate({
   where: {
     id,
@@ -610,7 +610,7 @@ ctx.model.User.findOrCreate({
 
 如果想要信息随时同步的话，可以再选择再进一步改造一下
 
-```js
+```javascript
 ctx.model.User.findOrCreate({
   where: {
     id,

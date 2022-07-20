@@ -109,103 +109,103 @@ export default {
     },]
   }
 ],
-"/Electron + React 从 0 到 1 实现简历平台实战/": [{
-    text: 'Electron + React 从 0 到 1 实现简历平台实战',
+"/Electron and React 从 0 到 1 实现简历平台实战/": [{
+    text: 'Electron and React 从 0 到 1 实现简历平台实战',
     collapsible: true,
     items: [
 {
       text: '开篇-技术选型和项目结构',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/开篇-技术选型和项目结构.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/开篇-技术选型和项目结构.md'
     },{
       text: '基础篇-Electron初步认识并掌握基础知识',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/基础篇-Electron初步认识并掌握基础知识.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/基础篇-Electron初步认识并掌握基础知识.md'
     },{
       text: '设计篇-需求功能设计与数据存储方案设计',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/设计篇-需求功能设计与数据存储方案设计.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/设计篇-需求功能设计与数据存储方案设计.md'
     },{
       text: '环境篇-动手搭建我们的简历平台',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/环境篇-动手搭建我们的简历平台.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/环境篇-动手搭建我们的简历平台.md'
     },{
       text: '🏆 500米里程碑｜环境搭建篇完成',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/ 500米里程碑｜环境搭建篇完成.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/ 500米里程碑｜环境搭建篇完成.md'
     },{
       text: '业务篇-首页开发，好的印象能加分',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-首页开发，好的印象能加分.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-首页开发，好的印象能加分.md'
     },{
       text: '业务篇-如何写我们的Redux与File',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-如何写我们的Redux与File.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-如何写我们的Redux与File.md'
     },{
       text: '业务篇-简历制作之常用组件设计与简历数据设计',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-简历制作之常用组件设计与简历数据设计.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-简历制作之常用组件设计与简历数据设计.md'
     },{
       text: '业务篇-简历制作之入口页面开发',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-简历制作之入口页面开发.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-简历制作之入口页面开发.md'
     },{
       text: '业务篇-简历制作之工具条模块与简历模版之间通信',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-简历制作之工具条模块与简历模版之间通信.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-简历制作之工具条模块与简历模版之间通信.md'
     },{
       text: '业务篇-简历制作之数据的录入与展示',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-简历制作之数据的录入与展示.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-简历制作之数据的录入与展示.md'
     },{
       text: '业务篇-简历制作之导出PDF',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-简历制作之导出PDF.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-简历制作之导出PDF.md'
     },{
       text: '🏆 1000米里程碑 ｜简历主流程完成',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/ 1000米里程碑 ｜简历主流程完成.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/ 1000米里程碑 ｜简历主流程完成.md'
     },{
       text: '🐼  支线篇-打包生成第一个桌面应用（骄傲自豪）',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/  支线篇-打包生成第一个桌面应用（骄傲自豪）.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/  支线篇-打包生成第一个桌面应用（骄傲自豪）.md'
     },{
       text: '业务篇-简历模版列表实现与侧边栏交互效果',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-简历模版列表实现与侧边栏交互效果.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-简历模版列表实现与侧边栏交互效果.md'
     },{
       text: '业务篇-首页主题换肤功能实现且Hooks优化逻辑',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-首页主题换肤功能实现且Hooks优化逻辑.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-首页主题换肤功能实现且Hooks优化逻辑.md'
     },{
       text: '业务篇-简历数据存档且自定义存储路径（多窗口）',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-简历数据存档且自定义存储路径（多窗口）.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-简历数据存档且自定义存储路径（多窗口）.md'
     },{
       text: '业务篇-思考并补全遗漏的功能细节，整体优化代码，让应用更健壮',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/业务篇-思考并补全遗漏的功能细节，整体优化代码，让应用更健壮.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/业务篇-思考并补全遗漏的功能细节，整体优化代码，让应用更健壮.md'
     },{
       text: '🏆 1500米里程碑 ｜丰富功能',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/ 1500米里程碑 ｜丰富功能.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/ 1500米里程碑 ｜丰富功能.md'
     },{
       text: '优化篇-公共弹窗拆解优化，让职能更加单一',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/优化篇-公共弹窗拆解优化，让职能更加单一.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/优化篇-公共弹窗拆解优化，让职能更加单一.md'
     },{
       text: '定制篇-自定义 Electron 原生应用菜单',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/定制篇-自定义 Electron 原生应用菜单.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/定制篇-自定义 Electron 原生应用菜单.md'
     },{
       text: '打包篇-应用程序生产环境构建',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/打包篇-应用程序生产环境构建.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/打包篇-应用程序生产环境构建.md'
     },{
       text: '打包篇-生产环境疑难杂症的解决',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/打包篇-生产环境疑难杂症的解决.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/打包篇-生产环境疑难杂症的解决.md'
     },{
       text: '打包篇-Webpack打包优化',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/打包篇-Webpack打包优化.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/打包篇-Webpack打包优化.md'
     },{
       text: '打包篇-Electron打包体积优化',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/打包篇-Electron打包体积优化.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/打包篇-Electron打包体积优化.md'
     },{
       text: '🏆 到达目的地-应用程序发布',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/ 到达目的地-应用程序发布.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/ 到达目的地-应用程序发布.md'
     },{
       text: '结尾篇-行而不辍，未来可期',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/结尾篇-行而不辍，未来可期.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/结尾篇-行而不辍，未来可期.md'
     },{
       text: '彩蛋篇-Webpack基础介绍与两大利器',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/彩蛋篇-Webpack基础介绍与两大利器.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/彩蛋篇-Webpack基础介绍与两大利器.md'
     },{
       text: '彩蛋篇-RcReduxModel中间件开发设计',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/彩蛋篇-RcReduxModel中间件开发设计.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/彩蛋篇-RcReduxModel中间件开发设计.md'
     },{
       text: '期望篇-可视化自定义独特的简历模版',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/期望篇-可视化自定义独特的简历模版.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/期望篇-可视化自定义独特的简历模版.md'
     },{
       text: '问题篇-常见问题解决',
-      link: '/Electron + React 从 0 到 1 实现简历平台实战/问题篇-常见问题解决.md'
+      link: '/Electron and React 从 0 到 1 实现简历平台实战/问题篇-常见问题解决.md'
     },]
   }
 ],
@@ -407,76 +407,76 @@ export default {
     },]
   }
 ],
-"/Node + React 实战：从 0 到 1 实现记账本/": [{
-    text: 'Node + React 实战：从 0 到 1 实现记账本',
+"/Node and React 实战：从 0 到 1 实现记账本/": [{
+    text: 'Node and React 实战：从 0 到 1 实现记账本',
     collapsible: true,
     items: [
 {
       text: '开篇词',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/开篇词.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/开篇词.md'
     },{
       text: '后端预备：Egg.js 基础入门及项目初始化介绍',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/后端预备-Egg.js 基础入门及项目初始化介绍.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/后端预备-Egg.js 基础入门及项目初始化介绍.md'
     },{
       text: '后端预备：MySql 本地安装(Win + Mac)',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/后端预备-MySql 本地安装(Win + Mac).md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/后端预备-MySql 本地安装(Win + Mac).md'
     },{
       text: '后端预备：可视化数据库工具 DBeaver 的安装和使用',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/后端预备-可视化数据库工具 DBeaver 的安装和使用.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/后端预备-可视化数据库工具 DBeaver 的安装和使用.md'
     },{
       text: '后端实战：数据库表的设计',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/后端实战-数据库表的设计.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/后端实战-数据库表的设计.md'
     },{
       text: '后端实战：egg-jwt 实现用户鉴权（注册、登录）',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/后端实战-egg-jwt 实现用户鉴权（注册、登录）.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/后端实战-egg-jwt 实现用户鉴权（注册、登录）.md'
     },{
       text: '后端实战：后端实战：用户信息相关接口实现（修改个签、修改密码、上传头像）',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/后端实战-后端实战-用户信息相关接口实现（修改个签、修改密码、上传头像）.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/后端实战-后端实战-用户信息相关接口实现（修改个签、修改密码、上传头像）.md'
     },{
       text: '后端实战：账单及其相关接口实现',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/后端实战-账单及其相关接口实现.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/后端实战-账单及其相关接口实现.md'
     },{
       text: '🚩 上半场结束｜服务端总结',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/ 上半场结束｜服务端总结.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/ 上半场结束｜服务端总结.md'
     },{
       text: '前端预备：现代前端框架单页面概念',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端预备-现代前端框架单页面概念.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端预备-现代前端框架单页面概念.md'
     },{
       text: '前端预备：从一个数据请求，入门 React Hooks',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端预备-从一个数据请求，入门 React Hooks.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端预备-从一个数据请求，入门 React Hooks.md'
     },{
       text: '前端预备：Vite 2.0 下一代前度开发构建工具',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端预备-Vite 2.0 下一代前度开发构建工具.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端预备-Vite 2.0 下一代前度开发构建工具.md'
     },{
       text: '前端实战：Vite 2.0 + React + ZarmUI 搭建前端 H5 开发环境',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端实战-Vite 2.0 + React + ZarmUI 搭建前端 H5 开发环境.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端实战-Vite 2.0 + React + ZarmUI 搭建前端 H5 开发环境.md'
     },{
       text: '前端实战：底部导航栏',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端实战-底部导航栏.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端实战-底部导航栏.md'
     },{
       text: '前端实战：登录注册页面',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端实战-登录注册页面.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端实战-登录注册页面.md'
     },{
       text: '前端实战：账单列表页',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端实战-账单列表页.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端实战-账单列表页.md'
     },{
       text: '前端实战：新增账单弹窗封装',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端实战-新增账单弹窗封装.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端实战-新增账单弹窗封装.md'
     },{
       text: '前端实战：账单详情页',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端实战-账单详情页.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端实战-账单详情页.md'
     },{
       text: '前端实战：账单数据统计页',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端实战-账单数据统计页.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端实战-账单数据统计页.md'
     },{
       text: '前端实战：个人中心',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/前端实战-个人中心.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/前端实战-个人中心.md'
     },{
       text: '项目部署上线',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/项目部署上线.md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/项目部署上线.md'
     },{
       text: '问题汇总(持续更新)',
-      link: '/Node + React 实战：从 0 到 1 实现记账本/问题汇总(持续更新).md'
+      link: '/Node and React 实战：从 0 到 1 实现记账本/问题汇总(持续更新).md'
     },]
   }
 ],

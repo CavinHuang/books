@@ -64,7 +64,7 @@ JS 是编译型还是解释型语言其实并不固定。首先 JS 需要有引�
 
 这里需要注意一点，对于函数来说，应该尽可能避免声明嵌套函数（类也是函数），因为这样会造成函数的重复解析。
 
-```js
+```javascript
 function test1() {
   // 会被重复解析
   function test2() {}
@@ -79,7 +79,7 @@ function test1() {
 
 JS 是一门**动态类型**的语言，并且还有一大堆的规则。简单的加法运算代码，内部就需要考虑好几种规则，比如数字相加、字符串相加、对象和字符串相加等等。这样的情况也就势必导致了内部要增加很多判断逻辑，降低运行效率。
 
-```js
+```javascript
 function test(x) {
   return x + x
 }
@@ -96,7 +96,7 @@ test(4)
 
 那么你可能会有一个疑问，到底优化前后有多少的提升呢，接下来我们就来实践测试一下到底有多少的提升。
 
-```js
+```javascript
 const { performance, PerformanceObserver } = require('perf_hooks')
 
 function test(x) {
@@ -134,7 +134,7 @@ performance.measure('test', 'start', 'end')
 
 其实很简单，我们只需要给函数**套上括号**就可以了
 
-```js
+```javascript
 (function test(obj) {
   return x + x
 })

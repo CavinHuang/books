@@ -64,7 +64,7 @@
 
 给 JS 打断点想必大家都会，但是打断点也是有一个不为人知的 Tips 的。
 
-```js
+```javascript
 for (let index = 0; index < 10; index++) {
   // 各种逻辑
   console.log(index)

@@ -12,7 +12,7 @@
 
 那么我们先来搭建构建函数的大体框架
 
-```js
+```javascript
 const PENDING = 'pending'
 const RESOLVED = 'resolved'
 const REJECTED = 'rejected'
@@ -36,7 +36,7 @@ function MyPromise(fn) {
 
 接下来我们来完善 `resolve` 和 `reject` 函数，添加在 `MyPromise` 函数体内部
 
-```js
+```javascript
 function resolve(value) {
   if (that.state === PENDING) {
     that.state = RESOLVED
@@ -62,7 +62,7 @@ function reject(value) {
 
 完成以上两个函数以后，我们就该实现如何执行 `Promise` 中传入的函数了
 
-```js
+```javascript
 try {
   fn(resolve, reject)
 } catch (e) {
@@ -75,7 +75,7 @@ try {
 
 最后我们来实现较为复杂的 `then` 函数
 
-```js
+```javascript
 MyPromise.prototype.then = function(onFulfilled, onRejected) {
   const that = this
   onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v
@@ -102,7 +102,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
 
 - 当参数不是函数类型时，需要创建一个函数赋值给对应的参数，同时也实现了透传，比如如下代码
 
-  ```js
+  ```javascript
   // 该代码目前在简单版中会报错
   // 只是作为一个透传的例子
   Promise.resolve(4).then().then((value) => console.log(value))
@@ -110,7 +110,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
 
 - 接下来就是一系列判断状态的逻辑，当状态不是等待态时，就去执行相对应的函数。如果状态是等待态的话，就往回调函数中 `push` 函数，比如如下代码就会进入等待态的逻辑
 
-  ```js
+  ```javascript
   new MyPromise((resolve, reject) => {
   setTimeout(() => {
     resolve(1)
@@ -128,7 +128,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
 
 我们先来改造一下 `resolve` 和 `reject` 函数
 
-```js
+```javascript
 function resolve(value) {
   if (value instanceof MyPromise) {
     return value.then(resolve, reject)
@@ -157,7 +157,7 @@ function reject(value) {
 
 接下来继续改造 `then` 函数中的代码，首先我们需要新增一个变量 `promise2`，因为每个 `then` 函数都需要返回一个新的 `Promise` 对象，该变量用于保存新的返回对象，然后我们先来改造判断等待态的逻辑
 
-```js
+```javascript
 if (that.state === PENDING) {
   return (promise2 = new MyPromise((resolve, reject) => {
     that.resolvedCallbacks.push(() => {
@@ -188,7 +188,7 @@ if (that.state === PENDING) {
 
 接下来我们改造判断执行态的逻辑
 
-```js
+```javascript
 if (that.state === RESOLVED) {
   return (promise2 = new MyPromise((resolve, reject) => {
     setTimeout(() => {
@@ -208,7 +208,7 @@ if (that.state === RESOLVED) {
 
 最后，当然也是最难的一部分，也就是实现兼容多种 `Promise` 的 `resolutionProcedure` 函数
 
-```js
+```javascript
 function resolutionProcedure(promise2, x, resolve, reject) {
   if (promise2 === x) {
     return reject(new TypeError('Error'))
@@ -218,7 +218,7 @@ function resolutionProcedure(promise2, x, resolve, reject) {
 
 首先规范规定了 `x` 不能与 `promise2` 相等，这样会发生循环引用的问题，比如如下代码
 
-```js
+```javascript
 let p = new MyPromise((resolve, reject) => {
   resolve(1)
 })
@@ -229,7 +229,7 @@ let p1 = p.then(value => {
 
 然后需要判断 `x` 的类型
 
-```js
+```javascript
 if (x instanceof MyPromise) {
     x.then(function(value) {
         resolutionProcedure(promise2, value, resolve, reject)
@@ -246,7 +246,7 @@ if (x instanceof MyPromise) {
 
 接下来我们继续按照规范来实现剩余的代码
 
-```js
+```javascript
 let called = false
 if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
   try {

@@ -14,7 +14,7 @@
 
 Sparrow 最终只暴露出一个函数：`plot`。该函数根据指定的 options 渲染图表并且返回一个渲染好的 SVG 元素。函数签名可以用 TypeScript 简单地如下定义：
 
-```js
+```javascript
 plot(options: SPSpec): SVGSVGElement
 ```
 
@@ -60,7 +60,7 @@ type SPNode = {
 
 对于容器节点来说，上面的属性对其没有效果，但是会被后代中视图节点继承。比如下面两种写法其实是等价的。
 
-```js
+```javascript
 // 可以理解为是下面的语法糖
 const options = {
   type: 'layer',
@@ -83,7 +83,7 @@ const options = {
 
 有了上面的介绍，接下来来看一个简单的例子。
 
-```js
+```javascript
 const sports = [
   { genre: 'Sports', sold: 275 },
   { genre: 'Strategy', sold: 115 },
@@ -95,7 +95,7 @@ const sports = [
 
 如果我们要用 Interval 去可视化上面的数据，那么我们将如下使用 Sparrow：
 
-```js
+```javascript
 import { plot } from '@sparrow-vis/plot';
 
 plot({
@@ -114,7 +114,7 @@ plot({
 
 接下来我们来看一个稍微复杂一点的例子，同样是上面的例子，这次我们来绘制一个饼图。
 
-```js
+```javascript
 import { plot } from '@sparrow-vis/plot';
 
 plot({
@@ -176,7 +176,7 @@ Sparrow 整个的渲染流程主要分为下面几个阶段：
 
 我们通过上面饼图的例子来展示一下这个流程。最开始的数据如下：
 
-```js
+```javascript
 const data = [
   { genre: 'Sports', sold: 275 },
   { genre: 'Strategy', sold: 115 },
@@ -188,7 +188,7 @@ const data = [
 
 首先数据会经过如下 transforms 函数的转换，这里面的转换会被合成一个函数。
 
-```js
+```javascript
 plot({
   // ...
   transforms: [(data) => {
@@ -201,7 +201,7 @@ plot({
 
 这一步之后的数据如下：
 
-```js
+```javascript
 const transformedData = [
   { genre: 'Sports', sold: 0.2722772277227723 },
   { genre: 'Strategy', sold: 0.11386138613861387 },
@@ -213,7 +213,7 @@ const transformedData = [
 
 数据转换之后将会根据 encodings 去提取数据。
 
-```js
+```javascript
 plot({
   // ...
   encodings: {
@@ -226,7 +226,7 @@ plot({
 
 根据如上的配置会得到如下的结果：
 
-```js
+```javascript
 const values = {
   // fill 和 'genre' 字段绑定，所以提取出来是 'genre' 字段的值
   fill: ['Sports', 'Strategy', 'Action', 'Shooter', 'Other'],
@@ -241,7 +241,7 @@ const values = {
 
 这之后就会就会经过 statistics 去处理数据。
 
-```js
+```javascript
 plot({
   // ... 
   statistics: [{ type: 'stackY' }],
@@ -251,7 +251,7 @@ plot({
 
 处理后的数据如下，可以发现 y 方向的通道已经被堆叠过了。这个阶段获得的 `transformedValues` 就是获得的通道值。
 
-```js
+```javascript
 const transformedValues = {
   // fill 和 'genre' 字段绑定，所以提取出来是 'genre' 字段的值
   fill: ['Sports', 'Strategy', 'Action', 'Shooter', 'Other'],
@@ -266,7 +266,7 @@ const transformedValues = {
 
 接下来就是根据获得的通道值创建比例尺了。
 
-```js
+```javascript
 plot({
   // ... 
   scales: {
@@ -278,7 +278,7 @@ plot({
 
 下面只展示了根据通道值和 scales 配置推断出来的比例尺比较重要的属性。这里的推断规则会后面介绍。
 
-```js
+```javascript
 const scaleDescriptors = {
   // stroke 和 fill 通道都是用 color 比例尺
   color: {
@@ -303,7 +303,7 @@ const scaleDescriptors = {
 
 这之后会根据 scaleDescriptors 和 guides 的配置去推断 guidesDescriptors。
 
-```js
+```javascript
 plot({
   // ... 
   guides: {
@@ -316,7 +316,7 @@ plot({
 
 最后得到的 guidesDescriptors 如下：
 
-```js
+```javascript
 const guidesDescriptors = {
   // color 通道的辅助组件是 legendSwatches
   // x 和 y 因为都设置为 display: false 了，所以不现实
@@ -336,7 +336,7 @@ const guidesDescriptors = {
 
 我们首先从 plot 函数开始，该函数会预处理我们的配置，然后解析描述的视图树，将嵌套的视图树拍平成一个视图树组，最后通过 plotView 函数绘制每一个视图。
 
-```js
+```javascript
 // src/plot/plot.js
 
 import { createViews } from '../view';
@@ -391,7 +391,7 @@ export function plot(root) {
 }
 ```
 
-```js
+```javascript
 // src/plot/plot.js
 
 function flow(root) {
@@ -416,7 +416,7 @@ function flow(root) {
 }
 ```
 
-```js
+```javascript
 // src/plot/plot.js
 
 function isChartNode(type) {
@@ -434,7 +434,7 @@ function isChartNode(type) {
 
 在这个流程中有两个函数比较关键：第一个就是 `initialize` 函数，这是获取每个几何图形通道值的地方；第二就是 `inferScales` 这个函数，这是给每个通道选择比例尺的地方，只要比例尺选择对了，那么绘制的几何图形就基本上没有问题了。
 
-```js
+```javascript
 // src/plot/plot.js
 
 function plotView({
@@ -488,7 +488,7 @@ function plotView({
 
 `initialize` 主要流程代码如下，具体的实现可以参考注释。
 
-```js
+```javascript
 // src/plot/geometry.js
 
 import { compose, indexOf } from '../utils';
@@ -553,7 +553,7 @@ export function initialize({
  -    transform：对数据的每一条数据进行转换获得一列值。
  -    value：返回一个常量数组。
 
-```js
+```javascript
 // src/plot/encoding
 
 export function valueOf(data, { type, value }) {
@@ -565,7 +565,7 @@ export function valueOf(data, { type, value }) {
 
 具体参考下面这个例子，最后的效果如下图。
 
-```js
+```javascript
 const sports = [
   { genre: 'Sports', sold: 275 },
   { genre: 'Strategy', sold: 115 },
@@ -591,7 +591,7 @@ const options = {
 
 接下来我们来看看补全编码信息。在上面绘制条形图的时候，我们对图表的描述如下：
 
-```js
+```javascript
 const options = {
   type: 'interval',
   data: sports,
@@ -604,7 +604,7 @@ const options = {
 
 可以发现在描述中我们是希望通过一个 interval 去可视化数据，并且指定了 interval 的 x 和 y 通道，但是 interval 的 y1 通道却没有指定！这个时候我们就需将这个 y1 通道的编码信息推断出来，最后的结果等于下面的图表描述：
 
-```js
+```javascript
 const options = {
   type: 'interval',
   data: sports,
@@ -632,7 +632,7 @@ const options = {
 
 具体的实现如下：
 
-```js
+```javascript
 // src/plot/scale.js
 
 import { firstOf, group, lastOf, map, defined } from '../utils';
@@ -661,7 +661,7 @@ export function inferScales(channels, options) {
 
 推断比例尺最核心的就是推断比例尺的类型，这里参考 \[Observable Plot\]\(<https://github.com/observablehq/plot/blob/main/src/scales.j> s\) 里面的推断方法，具体的实现如下。
 
-```js
+```javascript
 // src/plot/scale.js
 
 function inferScaleType(channel, options) {

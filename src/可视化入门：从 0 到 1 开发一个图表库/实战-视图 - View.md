@@ -22,7 +22,7 @@
 
 在数据结构层面，视图树就是一个如下的嵌套对象。
 
-```js
+```javascript
 const viewTree = {
   type: 'layer',
   children: [
@@ -81,7 +81,7 @@ type Area = {
 
 接下来我们就来看代码的实现。
 
-```js
+```javascript
 // src/view/view.js
 
 import { computeFlexViews } from './flex';
@@ -140,7 +140,7 @@ export function createViews(root, computes = {
 }
 ```
 
-```js
+```javascript
 // src/utils/tree.js
 
 export function descendants(root) {
@@ -161,7 +161,7 @@ export function bfs(root, callback) {
 }
 ```
 
-```js
+```javascript
 // src/utils/index.js
 
 export * from './tree';
@@ -171,7 +171,7 @@ export * from './tree';
 
 图层（Layer）节点的孩子视图都是重合在一起的，该节点主要用于在一个区域中绘制多个几何元素，就比如如下的例子。
 
-```js
+```javascript
 const temperatures = [
   { month: 'Jan', city: 'Tokyo', temperature: 7 },
   { month: 'Jan', city: 'London', temperature: 3.9 },
@@ -206,7 +206,7 @@ const temperatures = [
 
 对于如下的视图树，绘出来时如下的结果。
 
-```js
+```javascript
 const viewTree = {
   type: 'layer',
   children: [{}, {}],
@@ -219,7 +219,7 @@ const views = createViews(viewTree);
 
 它的实现非常简单，把自己的区域大小返回作为孩子节点的区域就好。
 
-```js
+```javascript
 // src/view/layer.js
 
 export function computeLayerViews(box, node) {
@@ -238,7 +238,7 @@ export function computeLayerViews(box, node) {
 
 对于如下的视图树，绘出来有如下的结果。
 
-```js
+```javascript
 const viewTree = {
   type: 'row', // 孩子水平排列
   flex: [1, 1], // 指定孩子的节点区域的比例
@@ -257,7 +257,7 @@ const views = createViews(viewTree);
 
 具体的代码实现如下：
 
-```js
+```javascript
 // src/view/flex.js
 
 export function computeFlexViews(box, node) {
@@ -287,7 +287,7 @@ export function computeFlexViews(box, node) {
 
 最后我们来看看分面（Facet）节点。分面是可视化中一个常用的手段，主要用于对数据进行分组，不同组的数据在不同的视图中展示。
 
-```js
+```javascript
 const facet = [
   { city: 'London', month: 'Jan.', rainfall: 18.9, type: 'a' },
   { city: 'London', month: 'Feb.', rainfall: 28.8, type: 'a' },
@@ -314,7 +314,7 @@ const facet = [
 
 根据上面的案例我们可以发现，分面节点除了会计算孩子节点区域的大小，还会去过滤数据，所以它还会额外返回一个过滤数据的函数。使用方式如下：
 
-```js
+```javascript
 const data = [
   { sex: 'male', skin: 'white' },
   { sex: 'male', skin: 'black' },
@@ -345,7 +345,7 @@ transform(data); // [{ sex: 'male', skin: 'white' }]
 
 代码实现如下：
 
-```js
+```javascript
 // src/view/flex.js
 
 import { group } from '../utils';

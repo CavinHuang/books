@@ -134,7 +134,7 @@ npm run dev
 
 静态资源的处理就相对简单一些，请求路径如果匹配到了图片正则、媒体正则或者字体正则的时候，就会被 `Vite` 认为是静态资源，相关代码如下：
 
-```js
+```javascript
 // https://github.com/vitejs/vite/blob/1.x/src/node/utils/pathUtils.ts
 const imageRE = /.(png|jpe?g|gif|svg|ico|webp)(?.*)?$/
 const mediaRE = /.(mp4|webm|ogg|mp3|wav|flac|aac)(?.*)?$/
@@ -150,7 +150,7 @@ export const isStaticAsset = (file: string) => {
 
 如果是一个静态资源的话，就会被处理成 ESM 返回。
 
-```js
+```javascript
 // https://github.com/vitejs/vite/blob/1.x/src/node/server/serverPluginAssets.ts
 app.use(async (ctx, next) => {
   if (isStaticAsset(ctx.path) && isImportRequest(ctx)) {

@@ -124,7 +124,7 @@ kubectl describe service/myapp
 
 ![](https://static001.geekbang.org/resource/image/03/97/0331db708282a70543c4c4ef3bcab997.png)
 
-接下来我们用浏览器访问[http://localhost:31947](http://localhost:31947%EF%BC%8C)，就可以看到我们新部署的MyApp应用了。
+接下来我们用浏览器访问`http://localhost:31947%EF%BC%8C`，就可以看到我们新部署的MyApp应用了。
 
 你也许会好奇，这跟我们之前的有什么不同，Istio都做了什么？
 

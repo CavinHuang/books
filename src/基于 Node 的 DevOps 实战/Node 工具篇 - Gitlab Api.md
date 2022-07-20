@@ -18,7 +18,7 @@
 
 新建 `/app/helper/utils/http.ts`
 
-```js
+```javascript
 const qs = require("qs");
 
 const baseUrl = "https://gitlab.xxxxxx.com"; // 此处替换为你自己的 gitlab 地址
@@ -89,7 +89,7 @@ OAuth2 授权有以下三种方式：
 
  1.     首先创建 `/app/controller/user.ts`，粘贴以下代码：
 
-```js
+```javascript
 import { Controller } from 'egg';
 import { Post, Prefix } from 'egg-shell-decorators';
 
@@ -117,7 +117,7 @@ export default class UserController extends Controller {
 
  2.     创建 `/app/service/user.ts`，粘贴以下代码：
 
-```js
+```javascript
 import { Service } from 'egg';
 
 export default class User extends Service {
@@ -152,7 +152,7 @@ export default class User extends Service {
 
  1.     再次在 `controller/user.ts` 与 `service/user.ts` 添加对应的方法，复制下面代码：
 
-```js
+```javascript
 // /app/controller/user.ts
 @Get('/getTokenByApp')
   public async getTokenByApplications({
@@ -387,7 +387,7 @@ Branch Api 主要是针对项目分支的一些操作，例如常见的增删改
 
 接下来进行将使用频率非常高的 Project Api 为例子开始封装第一个经常用使用的项目请求类
 
-```js
+```javascript
 import AJAX from "../../utils/http";
 
 module.exports = (app) => {
@@ -449,7 +449,7 @@ module.exports = (app) => {
 
 业务侧直接调用
 
-```js
+```javascript
 // Service
 import { Service } from "egg";
 

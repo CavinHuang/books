@@ -4,22 +4,22 @@ Vue.js 2.x 与 Vue.js 1.x 最大的区别就在于 2.x 使用了 Virtual DOM（�
 
 一般来说，我们写 Vue.js 组件，模板都是写在 `<template>` 内的，但它并不是最终呈现的内容，template 只是一种对开发者友好的语法，能够一眼看到 DOM 节点，容易维护，在 Vue.js 编译阶段，会解析为 Virtual DOM。
 
-与 DOM 操作相比，Virtual DOM 是基于 JavaScript 计算的，所以开销会小很多。下图演示了 Virtual DOM 运行的过程：
+与 DOM 操作相比，Virtual DOM 是基于 javascript 计算的，所以开销会小很多。下图演示了 Virtual DOM 运行的过程：
 
 ![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/11/13/1670bc4c26b9c667~tplv-t2oaga2asx-image.image)
 
 正常的 DOM 节点在 HTML 中是这样的：
 
-```
+```html
 <div id="main">
   <p>文本内容</p>
   <p>文本内容</p>
 </div>
 ```
 
-用 Virtual DOM 创建的 JavaScript 对象一般会是这样的：
+用 Virtual DOM 创建的 javascript 对象一般会是这样的：
 
-```
+```javascript
 const vNode = {
   tag: 'div',
   attributes: {
@@ -33,11 +33,11 @@ const vNode = {
 
 vNode 对象通过一些特定的选项描述了真实的 DOM 结构。
 
-在 Vue.js 中，对于大部分场景，使用 template 足以应付，但如果想完全发挥 JavaScript 的编程能力，或在一些特定场景下（后文介绍），需要使用 Vue.js 的 Render 函数。
+在 Vue.js 中，对于大部分场景，使用 template 足以应付，但如果想完全发挥 javascript 的编程能力，或在一些特定场景下（后文介绍），需要使用 Vue.js 的 Render 函数。
 
 ## Render 函数
 
-正如上文介绍的 Virtual DOM 示例一样，Vue.js 的 Render 函数也是类似的语法，需要使用一些特定的选项，将 template 的内容改写成一个 JavaScript 对象。
+正如上文介绍的 Virtual DOM 示例一样，Vue.js 的 Render 函数也是类似的语法，需要使用一些特定的选项，将 template 的内容改写成一个 javascript 对象。
 
 对于初级前端工程师，或想快速建站的需求，直接使用 Render 函数开发 Vue.js 组件是要比 template 困难的，原因在于 Render 函数返回的是一个 JS 对象，没有传统 DOM 的层级关系，配合上 if、else、for 等语句，将节点拆分成不同 JS 对象再组装，如果模板复杂，那一个 Render 函数是难读且难维护的。所以，绝大部分组件开发和业务开发，我们直接使用 template 语法就可以了，并不需要特意使用 Render 函数，那样只会增加负担，同时也放弃了 Vue.js 最大的优势（React 无 template 语法）。
 
@@ -45,7 +45,7 @@ vNode 对象通过一些特定的选项描述了真实的 DOM 结构。
 
 来看一组 template 和 Render 写法的对照：
 
-```
+```vue
 <template>
   <div id="main" class="container" style="color: red">
     <p v-if="show">内容 1</p>
@@ -63,7 +63,7 @@ vNode 对象通过一些特定的选项描述了真实的 DOM 结构。
 </script>
 ```
 
-```
+```javascript
 export default {
   data () {
     return {
@@ -99,20 +99,20 @@ h 有 3 个参数，分别是：
 
 1.  要渲染的元素或组件，可以是一个 html 标签、组件选项或一个函数（不常用），该参数为必填项。示例：
 
-    ```
-    // 1. html 标签
-    h('div');
-    // 2. 组件选项
-    import DatePicker from '../component/date-picker.vue';
-    h(DatePicker);
-    ```
+```javascript
+// 1. html 标签
+h('div');
+// 2. 组件选项
+import DatePicker from '../component/date-picker.vue';
+h(DatePicker);
+```
 
 2.  对应属性的数据对象，比如组件的 props、元素的 class、绑定的事件、slot、自定义指令等，该参数是可选的，上文所说的 Render 配置项多，指的就是这个参数。该参数的完整配置和示例，可以到 Vue.js 的文档查看，没必要全部记住，用到时查阅就好：[createElement 参数](https://cn.vuejs.org/v2/guide/render-function.html#createElement-%E5%8F%82%E6%95%B0)。
 
 3.  子节点，可选，String 或 Array，它同样是一个 h。示例：
 
-    ```
-    [
+```javascript
+[
   '内容',
   h('p', '内容'),
   h(Component, {
@@ -120,14 +120,14 @@ h 有 3 个参数，分别是：
       someProp: 'foo'
     }
   })
-    ]
-    ```
+]
+```
 
 ### 约束
 
 所有的组件树中，如果 vNode 是组件或含有组件的 slot，那么 vNode 必须唯一。以下两个示例都是**错误**的：
 
-```
+```javascript
 // 局部声明组件
 const Child = {
   render: (h) => {
@@ -148,7 +148,7 @@ export default {
 }
 ```
 
-```
+```javascript
 {
   render: (h) => {
     return h('div', [
@@ -161,7 +161,7 @@ export default {
 
 重复渲染多个组件或元素，可以通过一个循环和工厂函数来解决：
 
-```
+```javascript
 const Child = {
   render: (h) => {
     return h('p', 'text');
@@ -182,7 +182,7 @@ export default {
 
 对于含有组件的 slot，复用比较复杂，需要将 slot 的每个子节点都克隆一份，例如：
 
-```
+```javascript
 {
   render: (h) => {
     function cloneVNode (vnode) {
@@ -220,7 +220,7 @@ export default {
 
 它的使用方法是：
 
-```
+```vue
 <Transfer
     :data="data"
     :target-keys="targetKeys"
@@ -241,66 +241,66 @@ export default {
 
 1.  使用两个相同 slot。在 template 中，Vue.js 不允许使用两个相同的 slot，比如下面的示例是错误的：
 
-    ```
-    <template>
+```vue
+<template>
   <div>
     <slot></slot>
     <slot></slot>
   </div>
-    </template>
-    ```
+</template>
+```
 
     解决方案就是上文中讲到的**约束**，使用一个深度克隆 VNode 节点的方法。
 
 2.  在 SSR 环境（服务端渲染），如果不是常规的 template 写法，比如通过 Vue.extend 和 new Vue 构造来生成的组件实例，是编译不过的，在前面小节也有所介绍。回顾上一节的 `$Alert` 组件的 notification.js 文件，当时是使用 Render 函数来渲染 Alert 组件，如果改成另一种写法，在 SSR 中会报错，对比两种写法：
 
-    ```
-    // 正确写法
-    import Alert from './alert.vue';
-    import Vue from 'vue';
+```javascript
+// 正确写法
+import Alert from './alert.vue';
+import Vue from 'vue';
 
-    Alert.newInstance = properties => {
+Alert.newInstance = properties => {
   const props = properties || {};
 
   const Instance = new Vue({
-    data: props,
-    render (h) {
-      return h(Alert, {
-        props: props
-      });
-    }
-  });
+  data: props,
+  render (h) {
+    return h(Alert, {
+      props: props
+    });
+  }
+});
 
-  const component = Instance.$mount();
-  document.body.appendChild(component.$el);
+const component = Instance.$mount();
+document.body.appendChild(component.$el);
 
-  const alert = Instance.$children[0];
+const alert = Instance.$children[0];
 
-  return {
-    add (noticeProps) {
-      alert.add(noticeProps);
+return {
+  add (noticeProps) {
+    alert.add(noticeProps);
     },
-    remove (name) {
-      alert.remove(name);
+  remove (name) {
+    alert.remove(name);
     }
   }
-    };
+};
 
-    export default Alert;
-    ```
+export default Alert;
+```
 
-    ```
-    // 在 SSR 下报错的写法
-    import Alert from './alert.vue';
-    import Vue from 'vue';
+```javascript
+  // 在 SSR 下报错的写法
+  import Alert from './alert.vue';
+  import Vue from 'vue';
 
-    Alert.newInstance = properties => {
+  Alert.newInstance = properties => {
   const props = properties || {};
 
   const div = document.createElement('div');
   div.innerHTML = `<Alert ${props}></Alert>`;
   document.body.appendChild(div);
-  
+
   const Instance = new Vue({
     el: div,
     data: props,
@@ -314,13 +314,13 @@ export default {
       alert.add(noticeProps);
     },
     remove (name) {
-      alert.remove(name);
+    alert.remove(name);
     }
   }
-    };
+};
 
-    export default Alert;
-    ```
+export default Alert;
+```
 
 3.  在 runtime 版本的 Vue.js 中，如果使用 Vue.extend 手动构造一个实例，使用 template 选项是会报错的，在第 9 节中也有所介绍。解决方案也很简单，把 template 改写为 Render 就可以了。需要注意的是，在开发独立组件时，可以通过配置 Vue.js 版本来使 template 选项可用，但这是在自己的环境，无法保证使用者的 Vue.js 版本，所以对于提供给他人用的组件，是需要考虑兼容 runtime 版本和 SSR 环境的。
 
@@ -343,9 +343,9 @@ Vue.js 提供了一个 `functional` 的布尔值选项，设置为 true 可以�
 
 1.  首先创建一个函数化组件 **render.js**：
 
-    ```
-    // render.js
-    export default {
+```javascript
+// render.js
+export default {
   functional: true,
   props: {
     render: Function
@@ -353,60 +353,60 @@ Vue.js 提供了一个 `functional` 的布尔值选项，设置为 true 可以�
   render: (h, ctx) => {
     return ctx.props.render(h);
   }
-    };
-    ```
+};
+```
 
     它只定义了一个 props：render，格式为 Function，因为是 functional，所以在 render 里使用了第二个参数 `ctx` 来获取 props。这是一个中间文件，并且可以复用，其它组件需要这个功能时，都可以引入它。
 
 2.  创建组件：
 
-    ```
-    <!-- my-component.vue -->
-    <template>
+```vue
+<!-- my-component.vue -->
+<template>
   <div>
     <Render :render="render"></Render>
   </div>
-    </template>
-    <script>
-  import Render from './render.js';
-  
-  export default {
-    components: { Render },
-    props: {
-      render: Function
-    }
+</template>
+<script>
+import Render from './render.js';
+
+export default {
+  components: { Render },
+  props: {
+    render: Function
   }
-    </script>
-    ```
+}
+</script>
+```
 
 3.  使用上面的 my-compoennt 组件：
 
-    ```
-    <!-- demo.vue -->
-    <template>
+```vue
+<!-- demo.vue -->
+<template>
   <div>
     <my-component :render="render"></my-component>
   </div>
-    </template>
-    <script>
-  import myComponent from '../components/my-component.vue';
-  
-  export default {
-    components: { myComponent },
-    data () {
-      return {
-        render: (h) => {
-          return h('div', {
-            style: {
-              color: 'red'
-            }
-          }, '自定义内容');
-        }
+</template>
+<script>
+import myComponent from '../components/my-component.vue';
+
+export default {
+  components: { myComponent },
+  data () {
+    return {
+      render: (h) => {
+        return h('div', {
+          style: {
+            color: 'red'
+          }
+        }, '自定义内容');
       }
     }
   }
-    </script>
-    ```
+}
+</script>
+```
 
 这里的 render.js 因为只是把 demo.vue 中的 Render 内容过继，并无其它用处，所以用了 Functional Render。
 

@@ -32,7 +32,7 @@
 
 需要注意的是：几何图形渲染的数据不是一个数组，而是一个对象。这个对象的每一个 key 都是该几何图形的一个通道，对应的 value 是一个数组，数组的每一个元素是数据和该通道绑定的属性的值。具体可以参考以下的例子。
 
-```js
+```javascript
 const data = [
   { x: 0.2, y: 0.3, color: 'red' },
   { x: 0.4, y: 0.8, color: 'yellow' },
@@ -48,7 +48,7 @@ const values = {
 
 所有的几何图形都有如下的函数签名，同时也支持返回该几何图形拥有的通道。这些通道一方面可以对我们渲染的数据进行校验，另一方面可以在后面的开发中使用。
 
-```js
+```javascript
 
 /**
  * @param {Renderer} renderer 渲染引擎
@@ -69,7 +69,7 @@ geometry.channels = () => ({
 
 接下来还是用散点图的例子来看看几何图形的用法。
 
-```js
+```javascript
 import { createLinear } from "./scale";
 import { createCoordinate, transpose, cartesian } from './coordinate';
 import { point } from './geometry';
@@ -146,7 +146,7 @@ point(renderer, scales, values, styles, coordinate);
 | optional | values 里面是否需要该属性对应的值 | 否 | `true` |
 | scale | 需要使用的比例尺 | 是 |  |
 
-```js
+```javascript
 // src/geometry/channel.js
 
 export function createChannel({
@@ -160,7 +160,7 @@ export function createChannel({
 
 对于一个标准的几何元素来说，都具有以下的通道。
 
-```js
+```javascript
 // src/geometry/channel.js
 
 export function createChannels(options = {}) {
@@ -178,7 +178,7 @@ export function createChannels(options = {}) {
 
 创建完通道，我们就来看看几何图形的创建。对于每一个几何图形，我们需要定义它的通道和渲染函数，并且在渲染之前检查一下是否提供了需要的数据和正确的比例尺。
 
-```js
+```javascript
 // src/geometry/geometry.js
 
 export function createGeometry(channels, render) {
@@ -214,7 +214,7 @@ export function createGeometry(channels, render) {
 
 除了基本的通道以外，点还有一个半径（r）通道，去控制点的大小。结合上面的使用方法，下面的代码应该就不难理解了。
 
-```js
+```javascript
 // src/geometry/point.js
 
 import { createChannel, createChannels } from './channel';
@@ -254,7 +254,7 @@ point.channels = () => createChannels({
 });
 ```
 
-```js
+```javascript
 // src/geometry/style.js
 
 // 获得由通道指定的样式
@@ -268,7 +268,7 @@ export function channelStyles(index, channels) {
 }
 ```
 
-```js
+```javascript
 // src/geometry/shape.js
 
 // 绘制不同坐标系下面的圆
@@ -293,7 +293,7 @@ export function circle(renderer, coordinate, { cx, cy, r, ...styles }) {
 
 它的实现和点类似。
 
-```js
+```javascript
 // src/geometry/text.js
 
 import { createChannel, createChannels } from './channel';
@@ -327,7 +327,7 @@ function render(renderer, I, scales, values, directStyles, coordinate) {
 export const text = createGeometry(channels, render);
 ```
 
-```js
+```javascript
 // src/geometry/shape.js
 
 export function text(renderer, coordinate, { x, y, rotate, text, ...styles }) {
@@ -358,7 +358,7 @@ export function text(renderer, coordinate, { x, y, rotate, text, ...styles }) {
 
 具体的实现如下。
 
-```js
+```javascript
 // src/geometry/link.js
 
 import { createChannels, createChannel } from './channel';
@@ -388,7 +388,7 @@ function render(renderer, I, scales, values, directStyles, coordinate) {
 export const link = createGeometry(channels, render);
 ```
 
-```js
+```javascript
 // src/geometry/shape.js
 
 export function link(renderer, coordinate, { x1, y1, x2, y2, ...styles }) {
@@ -413,7 +413,7 @@ export function link(renderer, coordinate, { x1, y1, x2, y2, ...styles }) {
 
 线除了基本的通道之外，还有一个额外的 z 通道，用来对数据进行分组，从而绘制多条线，参考下面的例子。
 
-```js
+```javascript
 // z 通道表示种类
 const values = {
   x: [0.1, 0.3, 0.5, 0.9, 0.2, 0.4, 0.6, 0.8],
@@ -438,7 +438,7 @@ const line2 = {
 
 理解了 z 通道，那么接下来的实现就不难理解了。
 
-```js
+```javascript
 // src/geometry/line.js
 
 import { createChannel, createChannels } from './channel';
@@ -473,7 +473,7 @@ function render(renderer, I, scales, values, directStyles, coordinate) {
 export const line = createGeometry(channels, render);
 ```
 
-```js
+```javascript
 // src/geometry/style.js
 
 // 获取这个组的第一个点的样式作为该条线的样式
@@ -482,7 +482,7 @@ export function groupChannelStyles([index], channels) {
 }
 ```
 
-```js
+```javascript
 // src/utils/array.js
 
 /**
@@ -514,7 +514,7 @@ export function group(array, key = (d) => d) {
 }
 ```
 
-```js
+```javascript
 // src/utils/index.js
 
 export * from './array';
@@ -522,7 +522,7 @@ export * from './array';
 
 这里稍微提一下绘制一条线的函数：每一条线是一条 path，这条 path 的点由直线的点构成。在极坐标系下这条线需要闭合，所以需要将第一个点加入到最后。
 
-```js
+```javascript
 // src/geometry/shape.js
 
 import { line as pathLine } from './d';
@@ -535,7 +535,7 @@ export function line(renderer, coordinate, { X, Y, I: I0, ...styles }) {
 }
 ```
 
-```js
+```javascript
 // src/geometry/d.js
 
 export function line([p0, ...points]) {
@@ -560,7 +560,7 @@ export function line([p0, ...points]) {
 
 ![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bfcaa8a14c4b46e39c090283e8d3e18f~tplv-k3u1fbpfcp-watermark.image?)
 
-```js
+```javascript
 // src/geometry/area.js
 
 import { createChannel, createChannels } from './channel';
@@ -596,7 +596,7 @@ export const area = createGeometry(channels, render);
 
 绘制每一个区域的时候我们也需要针对不同的坐标系使用不同的绘制方式。和线一样，在极坐标系下我们也需要把区域的首尾连接起来。
 
-```js
+```javascript
 import { contour } from './primitive';
 import { area as pathArea } from './d';
 
@@ -620,7 +620,7 @@ export function area(renderer, coordinate, { X1, Y1, X2, Y2, I: I0, ...styles })
 }
 ```
 
-```js
+```javascript
 // src/geometry/d.js
 
 // 和 line 的区别就是进行了闭合操作
@@ -632,7 +632,7 @@ export function area(points) {
 }
 ```
 
-```js
+```javascript
 // src/geometry/primitive.js
 
 import { area as pathArea, line as pathLine } from './d';
@@ -667,7 +667,7 @@ export function contour(renderer, { points, ...styles }) {
 
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3421620cafc4e5d8a1e6bbeb59e905d~tplv-k3u1fbpfcp-watermark.image?)
 
-```js
+```javascript
 // src/geometry/rect.js
 
 import { createChannel, createChannels } from './channel';
@@ -705,7 +705,7 @@ export const rect = createGeometry(channels, render);
 
 ![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cfdb63dd161d4cc7a5ab5eae763d0a84~tplv-k3u1fbpfcp-watermark.image?)
 
-```js
+```javascript
 // src/geometry/shape.js
 
 import { dist, sub, equal } from '../utils';
@@ -748,7 +748,7 @@ export function rect(renderer, coordinate, { x1, y1, x2, y2, ...styles }) {
 }
 ```
 
-```js
+```javascript
 // src/geometry/d.js
 
 import { dist, angleBetween, sub } from '../utils';
@@ -772,7 +772,7 @@ export function sector([c, p0, p1, p2, p3]) {
 
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1d2af96904b4ee78693110d02f5fd4c~tplv-k3u1fbpfcp-watermark.image?)
 
-```js
+```javascript
 // src/geometry/primitive.js
 
 import { ring as pathRing } from './d';
@@ -790,7 +790,7 @@ export function ring(renderer, { cx, cy, r1, r2, ...styles }) {
 }
 ```
 
-```js
+```javascript
 // src/geometry/d.js
 
 // 生成绘制圆环的路径
@@ -810,7 +810,7 @@ export function ring([c, [r1, r2]]) {
 
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/92ca71d712c7459e8bf6db1d972fe3db~tplv-k3u1fbpfcp-watermark.image?)
 
-```js
+```javascript
 // src/utils/vector.js
 
 export function equal([x0, y0], [x1, y1]) {
@@ -843,7 +843,7 @@ export function angle([x, y]) {
 }
 ```
 
-```js
+```javascript
 // src/utils/index.js
 
 export * from './vector';
@@ -863,7 +863,7 @@ export * from './vector';
 
 上面的中每一个格子的 x 和 y 两个通道是由数据本身决定的，但是宽度和高度是分别是由水平方向和竖直方向格子的数量来决定的，而这个过程是通过 band 比例尺计算而得的。我们用竖直方向举例子。
 
-```js
+```javascript
 import { createBand } from './scale';
 
 const y = createBand({
@@ -878,7 +878,7 @@ const y1 = y + width;
 
 所以对于格子来说，它 x 和 y 通道的比例尺必须是 band 比例尺，它的实现如下。
 
-```js
+```javascript
 // src/geometry/cell.js
 
 import { createChannels, createChannel } from './channel';
@@ -929,7 +929,7 @@ export const cell = createGeometry(channels, render);
 
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2263ed64965348d894a88f1ca44d61ca~tplv-k3u1fbpfcp-watermark.image?)
 
-```js
+```javascript
 import { createChannel, createChannels } from './channel';
 import { channelStyles } from './style';
 import { rect } from './shape';
@@ -986,7 +986,7 @@ export const interval = createGeometry(channels, render);
 
 它主要用来绘制自定义的图形，比如地图等。
 
-```js
+```javascript
 const index = [0, 1];
 
 const values =  {

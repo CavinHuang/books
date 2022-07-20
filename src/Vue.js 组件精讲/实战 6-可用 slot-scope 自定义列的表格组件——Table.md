@@ -1,7 +1,3 @@
-
-# 实战 6-可用 slot-scope 自定义列的表格组件——Table
----
-
 # 实战 6：可用 slot-scope 自定义列的表格组件——Table
 
 上一节，我们基于 Render 函数实现了在表格中自定义列模板的组件 Table，虽说 Render 函数能够完全发挥 JavaScript 的编程能力，实现几乎所有的自定义工作，但本质上，使用者写的是一个庞大的 JS 对象，它不具备 DOM 结构，可读性和可维护性都比较差。对于大部分写 Vue.js 的开发者来说，更倾向于使用 template 的语法，毕竟它是 Vue.js 独有的特性。本小节则在上一节的 Table 组件基础上修改，实现一种达到同样渲染效果，但对使用者更友好的 slot-scope 写法。
@@ -10,7 +6,7 @@
 
 slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，用于分发内容。那 slot-scope 是什么呢？先来看一个场景，比如某组件拥有下面的模板：
 
-```
+```html
 <ul>
   <li v-for="book in books" :key="book.id">
     {{ book.name }}
@@ -22,7 +18,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 常规的 slot 无法实现对组件循环体的每一项进行不同的内容分发，这就要用到 slot-scope，它本质上跟 slot 一样，只不过可以传递参数。比如上面的示例，使用 slot-scope 封装：
 
-```
+```html
 <ul>
   <li v-for="book in books" :key="book.id">
     <slot :book="book">
@@ -35,7 +31,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 在 slot 上，传递了一个自定义的参数 `book`，它的值绑定的是当前循环项的数据 book，这样在父级使用时，就可以在 slot 中访问它了：
 
-```
+```vue
 <book-list :books="books">
   <template slot-scope="slotProps">
     <span v-if="slotProps.book.sale">限时优惠</span>
@@ -46,7 +42,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 使用 slot-scope 指定的参数 `slotProps` 就是这个 slot 的全部参数，它是一个对象，在 slot-scope 中是可以传递多个参数的，上例我们只写了一个参数 `book`，所以访问它就是 `slotProps.book`。这里推荐使用 ES6 的解构，能让参数使用起来更方便：
 
-```
+```vue
 <book-list :books="books">
   <template slot-scope="{ book }">
     <span v-if="book.sale">限时优惠</span>
@@ -57,13 +53,13 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 除了可以传递参数，其它用法跟 slot 是一样的，比如也可以“具名”：
 
-```
+```vue
 <slot :book="book" name="book">
   {{ book.name }}
 </slot>
 ```
 
-```
+```vue
 <template slot-scope="{ book }" slot="book">
   <span v-if="book.sale">限时优惠</span>
   {{ book.name }}
@@ -78,7 +74,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 第一种方案，用最简单的 slot-scope 实现，同时也兼容 Render 函数的旧用法。拷贝上一节的 Table 组件目录，更名为 `table-slot`，同时也拷贝路由，更名为 `table-slot.vue`。为了兼容旧的 Render 函数用法，在 columns 的列配置 column 中，新增一个字段 `slot` 来指定 slot-scope 的名称：
 
-```
+```vue
 <!-- src/components/table-slot/table.vue -->
 <template>
   <table>
@@ -106,7 +102,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 相比原先的文件，只在 `'render' in col` 的条件下新加了一个 `template` 的标签，如果使用者的 column 配置了 render 字段，就优先以 Render 函数渲染，然后再判断是否用 slot-scope 渲染。在定义的作用域 slot 中，将行数据 `row`、列数据 `column` 和第几行 `index` 作为 slot 的参数，并根据 column 中指定的 slot 字段值，动态设置了具名 `name`。使用者在配置 columns 时，只要指定了某一列的 slot，那就可以在 Table 组件中使用 slot-scope。我们以上一节的可编辑整行数据为例，用 slot-scope 的写法实现完全一样的效果：
 
-```
+```vue
 <!-- src/views/table-slot.vue -->
 <template>
   <div>
@@ -241,7 +237,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 第二种方案，不需要修改原先的 Table 组件代码，只是在使用层面修改即可。先来看具体的使用代码，然后再做分析。注意，这里使用的 Table 组件，仍然是上一节 `src/components/table-render` 的组件，它只有 Render 函数，没有定义 slot-scope：
 
-```
+```vue
 <!-- src/views/table-render.vue 的改写 -->
 <template>
   <div>
@@ -418,7 +414,7 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 
 在 slot-scope 的使用上（即 template 的内容），与方案一是完全一致的，可以看到，在 column 的定义上，仍然使用了 render 字段，只不过每个 render 都渲染了一个 div 节点，而这个 div 的内容，是指定来在 `<table-render>` 中定义的 slot-scope：
 
-```
+```javascript
 render: (h, { row, column, index }) => {
   return h(
     'div',
@@ -445,7 +441,7 @@ render: (h, { row, column, index }) => {
 
 保持方案 1 的用例不变，修改 `src/components/table-render` 中的代码。为了同时兼容 Render 与 slot-scope，我们在 `table-render` 下新建一个 slot.js 的文件：
 
-```
+```javascript
 // src/components/table-render/slot.js
 export default {
   functional: true,
@@ -469,7 +465,7 @@ export default {
 
 table.vue 也要做一点修改：
 
-```
+```vue
 <!-- src/components/table-slot/table.vue 的改写，部分代码省略 -->
 <template>
   <table>

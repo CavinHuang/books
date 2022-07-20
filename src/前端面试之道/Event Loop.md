@@ -36,7 +36,7 @@
 
 平时在开发中，大家也可以在报错中找到执行栈的痕迹
 
-```js
+```javascript
 function foo() {
   throw new Error('error')
 }
@@ -52,7 +52,7 @@ bar()
 
 当我们使用递归的时候，因为栈可存放的函数是有**限制**的，一旦存放了过多的函数且没有得到释放的话，就会出现爆栈的问题
 
-```js
+```javascript
 function bar() {
   bar()
 }
@@ -73,7 +73,7 @@ bar()
 
 不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 **微任务**（microtask） 和 **宏任务**（macrotask）。在 ES6 规范中，microtask 称为 `jobs`，macrotask 称为 `task`。下面来看以下代码的执行顺序：
 
-```js
+```javascript
 console.log('script start')
 
 async function async1() {
@@ -114,7 +114,7 @@ console.log('script end')
 
 如果你觉得上面这段解释还是有点绕，那么我把 `async` 的这两个函数改造成你一定能理解的代码
 
-```js
+```javascript
 new Promise((resolve, reject) => {
   console.log('async2 end')
   // Promise.resolve() 将代码插入微任务队列尾部
@@ -197,7 +197,7 @@ close callbacks 阶段执行 close 事件
 
 首先在有些情况下，定时器的执行顺序其实是**随机**的
 
-```js
+```javascript
 setTimeout(() => {
     console.log('setTimeout')
 }, 0)
@@ -214,7 +214,7 @@ setImmediate(() => {
 
 当然在某些情况下，他们的执行顺序一定是固定的，比如以下代码：
 
-```js
+```javascript
 const fs = require('fs')
 
 fs.readFile(__filename, () => {
@@ -233,7 +233,7 @@ fs.readFile(__filename, () => {
 
 ![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/11/14/16710fb80dd42d27~tplv-t2oaga2asx-image.image)
 
-```js
+```javascript
 setTimeout(() => {
   console.log('timer21')
 }, 0)
@@ -247,7 +247,7 @@ Promise.resolve().then(function() {
 
 最后我们来讲讲 Node 中的 `process.nextTick`，这个函数其实是独立于 Event Loop 之外的，它有一个自己的队列，当每个阶段完成后，如果存在 nextTick 队列，就会**清空队列中的所有回调函数**，并且优先于其他 microtask 执行。
 
-```js
+```javascript
 setTimeout(() => {
  console.log('timer1')
 

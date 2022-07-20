@@ -33,7 +33,7 @@
 
 首先我们来看看堆叠（StackY），堆叠这个统计函数常常用于堆叠条形图和堆叠面积图。下面我们先来看一个简单的例子。
 
-```js
+```javascript
 const rainfall = [
   { city: 'London', month: 'Jan.', rainfall: 18.9 },
   { city: 'London', month: 'Feb.', rainfall: 28.8 },
@@ -64,7 +64,7 @@ const rainfall = [
 
 接下来我们就从数据层面来了解一下堆叠函数的原理。这里还是说一下，统计函数处理的数据不是我们的原始表格数据，而是一个和每个通道绑定的对象，参考下面的例子。
 
-```js
+```javascript
 // 原始数据
 const raw = [
   { x: 0, y: 1 },
@@ -84,7 +84,7 @@ const data = {
 
 了解了统计函数的输入之后我们就来看看堆叠函数的使用方式。可以发现它把 x 属性相同的数据的 y 属性的值堆叠起来，修改了 y 的值，并且产生了一个新的 y1 通道的值。
 
-```js
+```javascript
 import { createStackY } from '../../src/statistic';
 
 const data = {
@@ -108,7 +108,7 @@ stack(data);
 
 接下来我们就来看看具体的实现。
 
-```js
+```javascript
 // src/statistc/stack.js
 
 import { group } from '../utils';
@@ -150,7 +150,7 @@ export function createStackY() {
 
 看完了例子，我们来看看使用方法。其实不难发现，归一化其实就是把 y 通道的值都变成了 `[0, 1]` 这个范围之内。
 
-```js
+```javascript
 import { createNormalizeY } from '../../src/statistic';
 const data = {
   index: [0, 1, 2],
@@ -173,7 +173,7 @@ const normalizeY = createNormalizeY();
 
 接下来我们就来看看具体的实现。
 
-```js
+```javascript
 // src/statistc/normalize.js
 
 import { group } from '../utils';
@@ -221,7 +221,7 @@ export function createNormalizeY() {
 
 这之后我们来看看对称（SymmetryY），对称这个统计函数常常用于漏斗图和河流图。下面我们先来看一个简单的例子。
 
-```js
+```javascript
 export const countries = [
   { country: 'Europe', year: '1750', value: 163 },
   { country: 'Europe', year: '1800', value: 203 },
@@ -264,7 +264,7 @@ export const countries = [
 
 接下来我们就从数据层面了解一下它的使用方式。可以发现对称其实是改变了 y 和 y1 这两个通道值。在根据 x 通道分组的基础上，让每个组 y 方向通道的平均值保持一致，并且选择最大的那一个平均值。
 
-```js
+```javascript
 import { createSymmetryY } from '../../src/statistic';
 
 const data = {
@@ -290,7 +290,7 @@ symmetryY(data);
 
 接下来我们就来看看具体的实现。
 
-```js
+```javascript
 // src/statistc/symmetry.js
 
 import { group } from '../utils';
@@ -344,7 +344,7 @@ export function createSymmetryY() {
 
 最后我们来看看分箱（BinX），分箱这个统计函数常常用于直方图，用于看数据的分布。
 
-```js
+```javascript
 const rainfall = [
   { city: 'London', month: 'Jan.', rainfall: 18.9 },
   { city: 'London', month: 'Feb.', rainfall: 28.8 },
@@ -373,7 +373,7 @@ const rainfall = [
 
 下面我们通过使用方式去深入了解一下它。可以发现我们将数据划分为了 `[0, 5, 10, 15, 20, 25, 30, 35]` 这些区间，每个区间的聚合方式选择了计数，并且将产生值作为了 fill 这个通道。同时根据划分的区间，修改了 x 和 y 通道，生成了 x1 通道。
 
-```js
+```javascript
 import { createBinX } from '../../src/statistic';
 const data = {
   index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -398,7 +398,7 @@ binX(data);
 
 接下来我们就来看看具体的实现。
 
-```js
+```javascript
 // src/statistc/bin.js
 
 import { bisect, ticks, identity, group, tickStep, floor, ceil, firstOf, min, max } from '../utils';

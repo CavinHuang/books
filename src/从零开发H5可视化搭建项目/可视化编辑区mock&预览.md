@@ -16,7 +16,7 @@
 
 为了让页面模板在编辑时走 `mock`,在非编辑环境下走真实的网络请求，这就要求模板页面需要根据当前被内置的环境判断请求是否需要走 mock。接下来修改我们的模板页面请求，并增加环境判断：
 
-```js
+```javascript
 const http = opt => {
   const { url, method, params, config = {} } = opt;
   // 没有配置 VUE_APP_API 或者在编辑环境中直接走mock
@@ -31,7 +31,7 @@ const http = opt => {
 
 再我们的模板项目 `coco-template` 下面再新建 `mock` 目录，用于 `mock` 网络请求。比如请求接口路径为 `api/1.0.0/getCampaignInfo`，为了减少开发需要在请求中自己手写 `mock` 路径，我们可以按照约定大于配置的原则，按照 `api^1.0.0^getCampaignInfo` 的文件名来命名文件：
 
-```js
+```javascript
 // 如果请求url为如下
 const url = 'api/1.0.0/getCampaignInfo'
 
@@ -70,7 +70,7 @@ coco-template
 
 再来看一下代码实现：
 
-```js
+```javascript
 // coco-template/common/coco-component.vue
  if (isPreview && pageId) {
   xhrGet(`${baseUrl}/project/preview?id=${pageId}`, (res) => {

@@ -19,7 +19,7 @@
 
 那么我们先来实现 `call`
 
-```js
+```javascript
 Function.prototype.myCall = function(context) {
   if (typeof this !== 'function') {
     throw new TypeError('Error')
@@ -42,7 +42,7 @@ Function.prototype.myCall = function(context) {
 
 以上就是实现 `call` 的思路，`apply` 的实现也类似，区别在于对参数的处理，所以就不一一分析思路了
 
-```js
+```javascript
 Function.prototype.myApply = function(context) {
   if (typeof this !== 'function') {
     throw new TypeError('Error')
@@ -63,7 +63,7 @@ Function.prototype.myApply = function(context) {
 
 `bind` 的实现对比其他两个函数略微地复杂了一点，因为 `bind` 需要返回一个函数，需要判断一些边界问题，以下是 `bind` 的实现
 
-```js
+```javascript
 Function.prototype.myBind = function (context) {
   if (typeof this !== 'function') {
     throw new TypeError('Error')
@@ -103,7 +103,7 @@ Function.prototype.myBind = function (context) {
 
 根据以上几个过程，我们也可以试着来自己实现一个 `new`
 
-```js
+```javascript
 function create() {
   let obj = {}
   let Con = [].shift.call(arguments)
@@ -125,7 +125,7 @@ function create() {
 
 对于创建一个对象来说，更推荐使用字面量的方式创建对象（无论性能上还是可读性）。因为你使用 `new Object()` 的方式创建对象需要通过作用域链一层层找到 `Object`，但是你使用字面量的方式就没这个问题。
 
-```js
+```javascript
 function Foo() {}
 // function 就是个语法糖
 // 内部等同于 new Function()
@@ -145,7 +145,7 @@ let a = { b: 1 }
 
 我们也可以试着实现一下 `instanceof`
 
-```js
+```javascript
 function myInstanceof(left, right) {
   let prototype = right.prototype
   left = left.__proto__
@@ -175,7 +175,7 @@ function myInstanceof(left, right) {
 
 我们都知道计算机是通过二进制来存储东西的，那么 `0.1` 在二进制中会表示为
 
-```js
+```javascript
 // (0011) 表示循环
 0.1 = 2^-4 * 1.10011(0011)
 ```
@@ -190,19 +190,19 @@ IEEE 754 双精度版本（64位）将 64 位分为了三段
 
 那么这些循环的数字被裁剪了，就会出现精度丢失的问题，也就造成了 `0.1` 不再是 `0.1` 了，而是变成了 `0.100000000000000002`
 
-```js
+```javascript
 0.100000000000000002 === 0.1 // true
 ```
 
 那么同样的，`0.2` 在二进制也是无限循环的，被裁剪后也失去了精度变成了 `0.200000000000000002`
 
-```js
+```javascript
 0.200000000000000002 === 0.2 // true
 ```
 
 所以这两者相加不等于 `0.3` 而是 `0.300000000000000004`
 
-```js
+```javascript
 0.1 + 0.2 === 0.30000000000000004 // true
 ```
 
@@ -210,13 +210,13 @@ IEEE 754 双精度版本（64位）将 64 位分为了三段
 
 因为在输入内容的时候，二进制被转换为了十进制，十进制又被转换为了字符串，在这个转换的过程中发生了取近似值的过程，所以打印出来的其实是一个近似值，你也可以通过以下代码来验证
 
-```js
+```javascript
 console.log(0.100000000000000002) // 0.1
 ```
 
 那么说完了为什么，最后来说说怎么解决这个问题吧。其实解决的办法有很多，这里我们选用原生提供的方式来最简单的解决问题
 
-```js
+```javascript
 parseFloat((0.1 + 0.2).toFixed(10)) === 0.3 // true
 ```
 
@@ -245,7 +245,7 @@ V8 实现了准确式 GC，GC 算法采用了分代式垃圾回收机制。因�
 
 老生代中的空间很复杂，有如下几个空间
 
-```c++
+```c
 enum AllocationSpace {
   // TODO(v8:7464): Actually map this space's memory as read-only.
   RO_SPACE,    // 不变的对象空间

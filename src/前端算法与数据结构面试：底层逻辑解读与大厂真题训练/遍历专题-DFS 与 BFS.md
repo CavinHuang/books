@@ -65,7 +65,7 @@
 
 从 `A` 结点出发，访问左侧的子结点；如果左子树同样存在左侧子结点，就**头也不回地继续访问下去**。一直到左侧子结点为空时，才**退回**到距离最近的父结点、再尝试去访问父结点的右侧子结点——这个过程，和走迷宫是何其相似！事实上，在二叉树中，结点就好比是迷宫里的坐标，图中的每个结点在作为父结点时无疑是岔路口，而空结点就是死胡同。我们回顾一下二叉树先序遍历的编码实现：
 
-```js
+```javascript
 // 所有遍历函数的入参都是树的根结点对象
 function preorder(root) {
     // 递归边界，root 为空
@@ -148,7 +148,7 @@ function preorder(root) {
 
 以上逻辑用伪代码表述如下：
 
-```js
+```javascript
 function BFS(入口坐标) {
     const queue = [] // 初始化队列queue
     // 入口坐标首先入队
@@ -171,7 +171,7 @@ function BFS(入口坐标) {
 
 注意，理论上来说只要我们拿到了 `top`，那么就不再关心队头元素了。因此这个 `shift` 出队的过程，其实是比较灵活的。一般只要我们拿到了 `top`，就可以执行 `shift`了。一些同学习惯于把`top`元素的访问和出队放在一起来做：
 
-```js
+```javascript
 const top = queue.shift()
 ```
 
@@ -185,7 +185,7 @@ const top = queue.shift()
 
 这棵二叉树的编码实现如下：
 
-```js
+```javascript
 const root = {
   val: "A",
   left: {
@@ -223,7 +223,7 @@ F
 
 看到“层次”关键字，大家应该立刻想到“扫描”；想到“扫描”，就应该立刻想到 BFS。因此层序遍历，我们就用 BFS 的思路来实现。这里咱们可以直接套用上面的伪代码：
 
-```js
+```javascript
 function BFS(root) {
     const queue = [] // 初始化队列queue
     // 根结点首先入队
@@ -248,7 +248,7 @@ function BFS(root) {
 
 执行 BFS：
 
-```js
+```javascript
 BFS(root)
 ```
 

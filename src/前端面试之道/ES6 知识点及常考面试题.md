@@ -14,7 +14,7 @@
 
 对于这个问题，我们应该先来了解提升（hoisting）这个概念。
 
-```js
+```javascript
 console.log(a) // undefined
 var a = 1
 ```
@@ -23,7 +23,7 @@ var a = 1
 
 对于这种情况，我们可以把代码这样来看
 
-```js
+```javascript
 var a
 console.log(a) // undefined
 a = 1
@@ -31,7 +31,7 @@ a = 1
 
 接下来我们再来看一个例子
 
-```js
+```javascript
 var a = 10
 var a
 console.log(a)
@@ -39,7 +39,7 @@ console.log(a)
 
 对于这个例子，如果你认为打印的值为 `undefined` 那么就错了，答案应该是 `10`，对于这种情况，我们这样来看代码
 
-```js
+```javascript
 var a
 var a
 a = 10
@@ -48,7 +48,7 @@ console.log(a)
 
 到这里为止，我们已经了解了 `var` 声明的变量会发生提升的情况，其实不仅变量会提升函数也会被提升。
 
-```js
+```javascript
 console.log(a) // ƒ a() {}
 function a() {}
 var a = 1
@@ -60,7 +60,7 @@ var a = 1
 
 我们先来看一个例子：
 
-```js
+```javascript
 var a = 1
 let b = 1
 const c = 1
@@ -86,7 +86,7 @@ test()
 
 那么到这里，想必大家也都明白 `var`、`let` 及 `const` 区别了，不知道你是否会有这么一个疑问，为什么要存在提升这个事情呢，其实提升存在的根本原因就是为了解决函数间互相调用的情况
 
-```js
+```javascript
 function test1() {
     test2()
 }
@@ -113,7 +113,7 @@ test1()
 
 首先先来讲下 `class`，其实在 JS 中并不存在类，`class` 只是语法糖，本质还是函数。
 
-```js
+```javascript
 class Person {}
 Person instanceof Function // true
 ```
@@ -124,7 +124,7 @@ Person instanceof Function // true
 
 组合继承是最常用的继承方式，
 
-```js
+```javascript
 function Parent(value) {
   this.val = value
 }
@@ -152,7 +152,7 @@ child instanceof Parent // true
 
 这种继承方式对组合继承进行了优化，组合继承缺点在于继承父类函数时调用了构造函数，我们只需要优化掉这点就行了。
 
-```js
+```javascript
 function Parent(value) {
   this.val = value
 }
@@ -186,7 +186,7 @@ child instanceof Parent // true
 
 以上两种继承方式都是通过原型去解决的，在 ES6 中，我们可以使用 `class` 去实现继承，并且实现起来很简单
 
-```js
+```javascript
 class Parent {
   constructor(value) {
     this.val = value
@@ -225,7 +225,7 @@ child instanceof Parent // true
 
 在早期，使用立即执行函数实现模块化是常见的手段，通过函数作用域解决了命名冲突、污染全局作用域的问题
 
-```js
+```javascript
 (function(globalVariable){
    globalVariable.test = function() {}
    // ... 声明各种变量、函数都不会污染全局作用域
@@ -236,7 +236,7 @@ child instanceof Parent // true
 
 鉴于目前这两种实现方式已经很少见到，所以不再对具体特性细聊，只需要了解这两者是如何使用的。
 
-```js
+```javascript
 // AMD
 define(['./a', './b'], function(a, b) {
   // 加载模块完毕可以使用
@@ -256,7 +256,7 @@ define(function(require, exports, module) {
 
 CommonJS 最早是 Node 在使用，目前也仍然广泛使用，比如在 Webpack 中你就能见到它，当然目前在 Node 中的模块管理已经和 CommonJS 有一些区别了。
 
-```js
+```javascript
 // a.js
 module.exports = {
     a: 1
@@ -273,7 +273,7 @@ module.a // -> log 1
 
 先说 `require` 吧
 
-```js
+```javascript
 var module = require('./a.js')
 module.a 
 // 这里其实就是包装了一层立即执行函数，这样就不会污染全局变量了，
@@ -309,7 +309,7 @@ ES Module 是原生实现的模块化方案，与 CommonJS 有以下几个区别
  -    CommonJS 在导出时都是值拷贝，就算导出的值变了，导入的值也不会改变，所以如果想更新值，必须重新导入一次。但是 ES Module 采用实时绑定的方式，导入导出的值都指向同一个内存地址，所以导入值会跟随导出值变化
  -    ES Module 会编译成 `require/exports` 来执行的
 
-```js
+```javascript
 // 引入模块 API
 import XXX from './a.js'
 import { XXX } from './a.js'
@@ -326,7 +326,7 @@ export default function() {}
 
 如果你平时有关注 Vue 的进展的话，可能已经知道了在 Vue3.0 中将会通过 `Proxy` 来替换原本的 `Object.defineProperty` 来实现数据响应式。 Proxy 是 ES6 中新增的功能，它可以用来自定义对象中的操作。
 
-```js
+```javascript
 let p = new Proxy(target, handler)
 ```
 
@@ -334,7 +334,7 @@ let p = new Proxy(target, handler)
 
 接下来我们通过 `Proxy` 来实现一个数据响应式
 
-```js
+```javascript
 let onWatch = (obj, setBind, getLogger) => {
   let handler = {
     get(target, property, receiver) {
@@ -371,7 +371,7 @@ p.a // 'a' = 2
 更新：评论中有同学对于 Proxy 无需一层层递归为每个属性添加代理有疑问，以下是实现代码。
 ```
 
-```js
+```javascript
 get(target, property, receiver) {
     getLogger(target, property)
     // 这句判断代码是新增的
@@ -391,13 +391,13 @@ get(target, property, receiver) {
 
 `map` 作用是生成一个新数组，遍历原数组，将每个元素拿出来做一些变换然后放入到新的数组中。
 
-```js
+```javascript
 [1, 2, 3].map(v => v + 1) // -> [2, 3, 4]
 ```
 
 另外 `map` 的回调函数接受三个参数，分别是当前索引元素，索引，原数组
 
-```js
+```javascript
 ['1','2','3'].map(parseInt)
 ```
 
@@ -407,7 +407,7 @@ get(target, property, receiver) {
 
 `filter` 的作用也是生成一个新数组，在遍历数组的时候将返回值为 `true` 的元素放入新数组，我们可以利用这个函数删除一些不需要的元素
 
-```js
+```javascript
 let array = [1, 2, 4, 6]
 let newArray = array.filter(item => item !== 6)
 console.log(newArray) // [1, 2, 4]
@@ -419,7 +419,7 @@ console.log(newArray) // [1, 2, 4]
 
 如果我们想实现一个功能将函数里的元素全部相加得到一个值，可能会这样写代码
 
-```js
+```javascript
 const arr = [1, 2, 3]
 let total = 0
 for (let i = 0; i < arr.length; i++) {
@@ -430,7 +430,7 @@ console.log(total) //6
 
 但是如果我们使用 `reduce` 的话就可以将遍历部分的代码优化为一行代码
 
-```js
+```javascript
 const arr = [1, 2, 3]
 const sum = arr.reduce((acc, current) => acc + current, 0)
 console.log(sum)
@@ -445,7 +445,7 @@ console.log(sum)
 
 想必通过以上的解析大家应该明白 `reduce` 是如何通过回调函数将所有元素最终转换为一个值的，当然 `reduce` 还可以实现很多功能，接下来我们就通过 `reduce` 来实现 `map` 函数
 
-```js
+```javascript
 const arr = [1, 2, 3]
 const mapArray = arr.map(value => value * 2)
 const reduceArray = arr.reduce((acc, current) => {

@@ -20,13 +20,13 @@
  2.     类型不相同的话，那么就会进行类型转换
  3.     会先判断是否在对比 `null` 和 `undefined`，是的话就会返回 `true`
  4.     判断两者类型是否为 `string` 和 `number`，是的话就会将字符串转换为 `number`
-    ```js
+    ```javascript
     1 == '1'
       ↓
     1 ==  1
     ```
  5.     判断其中一方是否为 `boolean`，是的话就会把 `boolean` 转为 `number` 再进行判断
-    ```js
+    ```javascript
     '1' == true
         ↓
     '1' ==  1
@@ -34,7 +34,7 @@
  1  ==  1
     ```
  6.     判断其中一方是否为 `object` 且另一方为 `string`、`number` 或者 `symbol`，是的话就会把 `object` 转为原始类型再进行判断
-    ```js
+    ```javascript
     '1' == { name: 'yck' }
         ↓
     '1' == '[object Object]'
@@ -62,7 +62,7 @@
 
 闭包的定义其实很简单：函数 A 内部有一个函数 B，函数 B 可以访问到函数 A 中的变量，那么函数 B 就是闭包。
 
-```js
+```javascript
 function A() {
   let a = 1
   window.B = function () {
@@ -81,7 +81,7 @@ B() // 1
 经典面试题，循环中使用闭包解决 `var` 定义函数的问题
 ```
 
-```Js
+```javascript
 for (var i = 1; i <= 5; i++) {
   setTimeout(function timer() {
     console.log(i)
@@ -93,7 +93,7 @@ for (var i = 1; i <= 5; i++) {
 
 解决办法有三种，第一种是使用闭包的方式
 
-```js
+```javascript
 for (var i = 1; i <= 5; i++) {
   ;(function(j) {
     setTimeout(function timer() {
@@ -107,7 +107,7 @@ for (var i = 1; i <= 5; i++) {
 
 第二种就是使用 `setTimeout` 的第三个参数，这个参数会被当成 `timer` 函数的参数传入。
 
-```js
+```javascript
 for (var i = 1; i <= 5; i++) {
   setTimeout(
     function timer(j) {
@@ -121,7 +121,7 @@ for (var i = 1; i <= 5; i++) {
 
 第三种就是使用 `let` 定义 `i` 了来解决问题了，这个也是最为推荐的方式
 
-```js
+```javascript
 for (let i = 1; i <= 5; i++) {
   setTimeout(function timer() {
     console.log(i)
@@ -137,7 +137,7 @@ for (let i = 1; i <= 5; i++) {
 
 在上一章节中，我们了解了对象类型在赋值的过程中其实是复制了地址，从而会导致改变了一方其他也都被改变的情况。通常在开发中我们不希望出现这样的问题，我们可以使用浅拷贝来解决这个情况。
 
-```js
+```javascript
 let a = {
   age: 1
 }
@@ -150,7 +150,7 @@ console.log(b.age) // 2
 
 首先可以通过 `Object.assign` 来解决这个问题，很多人认为这个函数是用来深拷贝的。其实并不是，`Object.assign` 只会拷贝所有的属性值到新的对象中，如果属性值是对象的话，拷贝的是地址，所以并不是深拷贝。
 
-```js
+```javascript
 let a = {
   age: 1
 }
@@ -161,7 +161,7 @@ console.log(b.age) // 1
 
 另外我们还可以通过展开运算符 `...` 来实现浅拷贝
 
-```js
+```javascript
 let a = {
   age: 1
 }
@@ -172,7 +172,7 @@ console.log(b.age) // 1
 
 通常浅拷贝就能解决大部分问题了，但是当我们遇到如下情况就可能需要使用到深拷贝了
 
-```js
+```javascript
 let a = {
   age: 1,
   jobs: {
@@ -190,7 +190,7 @@ console.log(b.jobs.first) // native
 
 这个问题通常可以通过 `JSON.parse(JSON.stringify(object))` 来解决。
 
-```js
+```javascript
 let a = {
   age: 1,
   jobs: {
@@ -209,7 +209,7 @@ console.log(b.jobs.first) // FE
  -    不能序列化函数
  -    不能解决循环引用的对象
 
-```js
+```javascript
 let obj = {
   a: 1,
   b: {
@@ -232,7 +232,7 @@ console.log(newObj)
 
 在遇到函数、 `undefined` 或者 `symbol` 的时候，该对象也不能正常的序列化
 
-```js
+```javascript
 let a = {
   age: undefined,
   sex: Symbol('male'),
@@ -249,7 +249,7 @@ console.log(b) // {name: "yck"}
 
 如果你所需拷贝的对象含有内置类型并且不包含函数，可以使用 `MessageChannel`
 
-```js
+```javascript
 function structuralClone(obj) {
   return new Promise(resolve => {
     const { port1, port2 } = new MessageChannel()
@@ -278,7 +278,7 @@ test()
 
 当然你可能想自己来实现一个深拷贝，但是其实实现一个深拷贝是很困难的，需要我们考虑好多种边界情况，比如原型链如何处理、DOM 如何处理等等，所以这里我们实现的深拷贝只是简易版，并且我其实更推荐使用 [lodash 的深拷贝函数](https://lodash.com/docs#cloneDeep)。
 
-```js
+```javascript
 function deepClone(obj) {
   function isObject(o) {
     return (typeof o === 'object' || typeof o === 'function') && o !== null

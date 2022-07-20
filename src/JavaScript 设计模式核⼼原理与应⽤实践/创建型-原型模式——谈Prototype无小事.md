@@ -35,7 +35,7 @@ Dog dog_copy = new Dog('旺财', 'male', 3, '柴犬')
 
 > ECMAScript 2015 中引入的 JavaScript 类实质上是 JavaScript 现有的基于原型的继承的语法糖。类语法不会为 JavaScript 引入新的面向对象的继承模型。 ——MDN 当我们尝试用 class 去定义一个 Dog 类时：
 
-```js
+```javascript
 class Dog {
   constructor(name ,age) {
    this.name = name
@@ -50,7 +50,7 @@ class Dog {
 
 其实完全等价于写了这么一个构造函数:
 
-```js
+```javascript
 function Dog(name, age) {
   this.name = name
   this.age = age
@@ -70,7 +70,7 @@ Dog.prototype.eat = function() {
 
 在 JavaScript 中，每个构造函数都拥有一个`prototype`属性，它指向构造函数的原型对象，这个原型对象中有一个 constructor 属性指回构造函数；每个实例都有一个`__proto__`属性，当我们使用构造函数去创建实例时，实例的`__proto__`属性就会指向构造函数的原型对象。 具体来说，当我们这样使用构造函数创建一个对象时：
 
-```js
+```javascript
 // 创建一个Dog构造函数
 function Dog(name, age) {
   this.name = name
@@ -91,7 +91,7 @@ const dog = new Dog('旺财', 3)
 
 现在我在上面那段代码的基础上，进行两个方法调用:
 
-```js
+```javascript
 // 输出"肉骨头真好吃"
 dog.eat()
 // 输出"[object Object]"
@@ -114,7 +114,7 @@ dog.toString()
 
 实现 JavaScript 中的深拷贝，有一种非常取巧的方式 —— JSON.stringify：
 
-```js
+```javascript
 const liLei = {
     name: 'lilei',
     age: 28,
@@ -135,7 +135,7 @@ console.log('李雷的habits数组是',  liLei.habits)
 
 **深拷贝没有完美方案，每一种方案都有它的边界 case**。而面试官向你发问也并非是要求你破解人类未解之谜，多数情况下，他只是希望考查你对**递归**的熟练程度。所以递归实现深拷贝的核心思路，大家需要重点掌握（解析在注释里）：
 
-```js
+```javascript
 function deepClone(obj) {
     // 如果是 值类型 或 null，则直接return
     if(typeof obj !== 'object' || obj === null) {

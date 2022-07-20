@@ -14,7 +14,7 @@
 
 项目选择 [jenkins](https://www.npmjs.com/package/jenkins) 库来拓展，注意如果你使用 TS 模式的话，需要安装 \@types/jenkins 依赖。
 
-```js
+```javascript
 import * as jenkins from "jenkins";
 
 /**
@@ -119,7 +119,7 @@ export default {
 
 新建 `app/Controller/build.ts`
 
-```js
+```javascript
 import { Post, Prefix, Get } from "egg-shell-decorators";
 import BaseController from "./base";
 @Prefix("build")
@@ -246,7 +246,7 @@ Egg 框架提供了 egg-socket.io 插件，增加了以下开发规约：
 
  1.     安装插件
 
-```js
+```javascript
 $ npm i egg-socket.io --save
 ```
 
@@ -280,7 +280,7 @@ io: {
 
  4.     配置 io 路由
 
-```js
+```javascript
 import { Application } from "egg"; // io 路由使用方式
 import { EggShell } from "egg-shell-decorators";
 
@@ -294,7 +294,7 @@ export default (app: Application) => {
 
 > ts 使用中 io.controller.nsp 会报类型未定义，所以需要修改一下 **typings/index.d.ts** 文件。
 
-```js
+```javascript
 import "egg";
 
 declare module "egg" {

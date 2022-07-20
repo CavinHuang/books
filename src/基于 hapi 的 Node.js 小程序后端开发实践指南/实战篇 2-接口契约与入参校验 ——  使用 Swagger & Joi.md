@@ -195,7 +195,7 @@ module.exports = [
 
 ```
 
-通过 <http://localhost:3000/documentation> （你自己的服务地址 + /documentation）来查看 Swagger 文档，刚才定义的路由配置，已经有配套接口文档了，后面的章节来开始堆业务。
+通过 `http://localhost:3000/documentation` （你自己的服务地址 + /documentation）来查看 Swagger 文档，刚才定义的路由配置，已经有配套接口文档了，后面的章节来开始堆业务。
 
 > **GitHub 参考代码** [chapter6/hapi-tutorial-2](https://github.com/yeshengfei/hapi-tutorial/tree/master/chapter6/hapi-tutorial-2)
 

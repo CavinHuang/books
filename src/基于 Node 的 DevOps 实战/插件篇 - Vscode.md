@@ -42,7 +42,7 @@ npm install -g yo generator-code
 
  1.     `package.json` 激活事件 + 注册命令，这里选择任意事件激活，毕竟我们集成的事件比较多。
 
-```js
+```javascript
   "activationEvents": [
     "*"
   ],

@@ -49,7 +49,7 @@ Controller 的定义是负责解析用户的输入，处理后返回相应的结
 
 `controller/home.ts` 可以使用 `ctx.query` 接受 query 参数。
 
-```js
+```javascript
 ctx.body = `Hello ${ctx.query.name}!`;
 ```
 
@@ -145,7 +145,7 @@ config.security = {
 
 修改 router.js
 
-```js
+```javascript
 import { Application } from 'egg';
 import { EggShell } from 'egg-shell-decorators';
 
@@ -161,7 +161,7 @@ export default (app: Application) => {
 
 路由配置则如下所示：
 
-```js
+```javascript
 import { Controller } from 'egg';
 import { Post, Prefix } from 'egg-shell-decorators';
 

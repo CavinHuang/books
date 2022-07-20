@@ -6,7 +6,7 @@
 
 之前在使用 SVG 开发一个条形图的过程中，我们发现有一些地方不方便。比如我们每次绘制一个元素，都需要三步：创建元素，设置元素属性，最后再挂载元素。
 
-```js
+```javascript
 // 创建元素 
 const rect = createSVGElement('rect'); 
 
@@ -67,7 +67,7 @@ g.appendChild('rect');
 
 具体期望的使用方法如下：
 
-```js
+```javascript
 import { createRenderer } from 'renderer'; 
 
 // 创建渲染器
@@ -102,7 +102,7 @@ renderer.restore();
 
 比如大家开发完成了 `foo` 这个函数，就可以增加以下的测试代码，然后运行：`npx jest __tests__/hello.spec.js` 看是否有问题。
 
-```js
+```javascript
 // __tests__/hello.spec.js 
 
 import { foo } from '../src/foo'; 
@@ -116,7 +116,7 @@ describe('test foo', () => {
 
 同时我们在写代码的过程中不会完全遵循 `airbnb-base` 的规范，所以需要修改 .eslintrc.js 如下，关闭一些规则的校验。
 
-```js
+```javascript
 // .eslintrc.js
 module.exports = {
   env: {
@@ -151,7 +151,7 @@ module.exports = {
 
 我们首先来实现 `createRenderer` 这个函数来返回我们的渲染器对象。它的所有功能都是通过这个对象对外暴露的。根据上面的功能设计，我们不难得到以下的代码。
 
-```js
+```javascript
 // src/renderer/renderer.js
 
 import { createContext } from './context';
@@ -182,7 +182,7 @@ export function createRenderer(width, height) {
 }
 ```
 
-```js
+```javascript
 // src/renderer/index.js
 
 export { createRenderer } from './renderer';
@@ -201,7 +201,7 @@ export { createRenderer } from './renderer';
 
 Context 的创建是由如下的 `createContext(width, height)` 这个函数实现的。
 
-```js
+```javascript
 // src/renderer/context.js
 
 import { createSVGElement, mount } from './utils';
@@ -225,7 +225,7 @@ export function createContext(width, height) {
 }
 ```
 
-```js
+```javascript
 // src/renderer/utils.js
 
 // 创建 SVG 元素
@@ -253,7 +253,7 @@ export function mount(parent, child) {
 
 因为绘制不同的图形只是在创建元素阶段指定不同的元素类型，所以我们把上面三步封装成一个通用的 `shape` 函数：
 
-```js
+```javascript
 // src/renderer/shape.js
 
 import { applyAttributes, createSVGElement, mount } from './utils';
@@ -269,7 +269,7 @@ export function shape(type, context, attributes) {
 }
 ```
 
-```js
+```javascript
 // src/renderer/utils.js
 
 export function applyAttributes(element, attributes) {
@@ -286,7 +286,7 @@ export function applyAttributes(element, attributes) {
 
 当我们完成了 shape 函数之后，那么绘制 `line`、`rect`，`circle` 等这些基本元素就非常容易了，只要给 `shape` 传入不同的元素的种类并且根据需要进行简单增强即可。
 
-```js
+```javascript
 // src/renderer/shape.js
 
 export function line(context, attributes) {
@@ -348,7 +348,7 @@ export function path(context, attributes) {
 
 我们将用三个圆去模拟一个圆环，它们的填充色都是透明的，其中两个圆的边框去模拟圆环的边框\(上面的红色部分），用一个圆的边框去模拟圆环本身（上面蓝色部分）。实现细节如下：
 
-```js
+```javascript
 export function ring(context, attributes) {
   // r1 是内圆的半径，r2 是外圆的半径
   const {
@@ -397,7 +397,7 @@ export function ring(context, attributes) {
 
 我们的目标让我们的渲染引擎支持：平移（translate）、放缩（Scale\) 旋转（Rotate）这三种变换。这三种变换虽然名字和参数不同，但添加流程都是一样的，所以我们可以创建一个名叫 `transform` 的函数来统一这个流程。
 
-```js
+```javascript
 // src/renderer/transform.js
 
 import { applyTransform, createSVGElement, mount } from './utils';
@@ -409,7 +409,7 @@ export function transform(type, context, ...params) {
 }
 ```
 
-```js
+```javascript
 // src/renderer/utils.js
 
 export function applyTransform(element, transform) {
@@ -422,7 +422,7 @@ export function applyTransform(element, transform) {
 
 这之后就不难实现如下的坐标系变换了。
 
-```js
+```javascript
 // src/renderer/transform.js
 
 export function translate(context, tx, ty) {
@@ -440,7 +440,7 @@ export function scale(context, sx, sy) {
 
 在使用坐标系变换的时候，除了应用对应变换之外，还应该实现对变换状态的管理。这个地方的核心就是控制当前变换影响的元素范围。基于 SVG 通过 g 元素来指定变换的特点，我们只用更新当前挂载节点，使得当前变换只会影响当前挂载节点下面的元素即可。
 
-```js
+```javascript
 // src/renderer/transform.js
 
 export function save(context) {
@@ -451,7 +451,7 @@ export function save(context) {
 }
 ```
 
-```js
+```javascript
 // src/renderer/transform.js
 
 export function restore(context) {
@@ -481,7 +481,7 @@ Sparrow 需要的渲染引擎我们已经完成啦，完整的代码可以在[�
 
 用 \@antv/g 绘制一个简单的红色的圆形的代码如下：
 
-```js
+```javascript
 // 引入并选择渲染器
 import { Renderer as CanvasRenderer } from '@antv/g-svg';
 import { Canvas, Circle } from '@antv/g';
@@ -518,7 +518,7 @@ p5.js 表面上说是一个面向艺术家、设计师、教育家、初学者�
 
 下面我们同样来看看 p5.js 是如何绘制一个圆形的。
 
-```js
+```javascript
 function setup() {
   createCanvas(400, 400);
 }
@@ -532,7 +532,7 @@ function draw() {
 
 \@antv/g 和 p5js 都是绘制常规风格元素的渲染引擎，[rough.js](https://link.juejin.cn/?target=https%3A%2F%2Froughjs.com%2F "https://roughjs.com/") 就不一样了：它绘制出来元素的效果都是手绘风格！
 
-```js
+```javascript
 rc.circle(50, 50, 80, { fill: 'red' }); // fill with red hachure
 rc.rectangle(120, 15, 80, 80, { fill: 'red' });
 rc.circle(50, 150, 80, {
@@ -558,7 +558,7 @@ rc.rectangle(120, 105, 80, 80, {
 
 其实基于 roughjs 我们可以做出很多有意思的效果，比如我们可以基于 roughjs 封装和我们上面渲染器相同的 API 的手绘风格渲染器。这样当后面我们把 Sparrow 开发完成之后，我们只用修改渲染器就可以转换图表的绘制风格了。
 
-```js
+```javascript
 import { plot } from "@sparrow-vis/sparrow";
 import { createPlugin } from "@sparrow-vis/rough-renderer"
 

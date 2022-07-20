@@ -116,7 +116,7 @@ export default {
 
 我们再渲染的时候，就可能面临 `formData.object.string` 这的操作，或者是 `formData.radio` 因为他们都是没有默认值的，前者可能会报错，后者可能会出现展示问题。所以我们需要对 `formData` 按照 `schema` 的规范对未给定默认值的属性进行初始化：
 
-```js
+```javascript
 function resolve(schema, data, options = {}) {
   const {
     // 类型
@@ -146,7 +146,7 @@ function resolve(schema, data, options = {}) {
 
 然后我们再根据 scheme 类型，制定默认数据：
 
-```js
+```javascript
 function getDefaultValue(schame) {
   const { type } = schema;
   const defaultValue = {
@@ -179,7 +179,7 @@ function getDefaultValue(schame) {
 
 表单渲染这块的逻辑，最简单的方式就是写很多很多功能组件，比如 `input`、 `number`、`richText` 等等，然后再根据 `schema` 的 type 属性来确定用哪个组件，比如：
 
-```js
+```javascript
 const mapping = {
   default: 'input',
   string: 'input',
@@ -201,7 +201,7 @@ const widgets = {
 
 然后根据 type 来动态引用：
 
-```js
+```javascript
 export default {
   setup() {
     return () => {
@@ -223,7 +223,7 @@ export default {
 
 注意，我这里使用的是 `jsx` 语法，因为 `jsx` 对于一些高度复杂的 `ui` 逻辑处理还是非常方便的。其次我们可以毫无保留的复用大部分 `form render` 的能力，因为 `form render` 是基于 react 来实现的，无非我们就是用 `vue3` 翻译了一遍而已。 最后再处理一下针对多级前端对象的循环渲染：
 
-```js
+```javascript
 // object
 Object.keys(props.value).map((name, index) => {
   const schema = childrenSchemas[index].schema;
@@ -251,7 +251,7 @@ Object.keys(props.value).map((name, index) => {
 
 校验需要做的一方面是对数据格式的基础校验，一方面需要对用户自定义规则校验。先说一下数据格式的校验，比如对url的格式校验，则需要图片必须是符合域名规范的格式，图片必须是符合图片规范的格式，所以针对这一类的校验我们也可以通过 `type` 来判断：
 
-```js
+```javascript
 if (format === 'image') {
   const imagePattern =
     '([/|.|w|s|-])*.(?:jpg|gif|png|bmp|apng|webp|jpeg|json)';
@@ -276,7 +276,7 @@ if (format === 'url') {
 
 如果是用户自定义的格式，我们也需要去支持正则匹配：
 
-```js
+```javascript
 // 正则只对数字和字符串有效果
 // value 有值的时候才去算 pattern。从场景反馈还是这样好
 if (value && usePattern && !new RegExp(pattern).test(value)) {
@@ -288,7 +288,7 @@ if (value && usePattern && !new RegExp(pattern).test(value)) {
 
 编辑器要使用 `form render` 则可以根据组件配置的 `schema` 来动态渲染表单：
 
-```js
+```javascript
 import FromRender from 'vue-form-render';
 import 'vue-form-render/lib/vue-form-render.css';
 

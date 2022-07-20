@@ -120,7 +120,7 @@ pipeline {
 
  1.     项目未拉取，这种情况很简单，直接使用如下命令即可：
 
-```js
+```javascript
 sh "git clone ${params.PROJECT_GIT_PATH}"
 sh "git checkout ${params.BRANCH_NAME}"
 ```
@@ -143,7 +143,7 @@ sh "git checkout ${params.BRANCH_NAME}"
 
 这一步就可以使用到我们上一章构建好的打包镜像
 
-```js
+```javascript
 sh "docker run -i --rm \
 -v /home/build/${params.PROJECT_NAME}:/home/${params.PROJECT_NAME} \
 ${params.DOCKER_PUBLISHER} sh -c \
@@ -161,7 +161,7 @@ ${params.DOCKER_PUBLISHER} sh -c \
 
 与构建相通，对于发布来说，我们也可以使用 docker 来解决，因为每个项目的发布地址、方式可以不尽相同。
 
-```js
+```javascript
 sh "docker run -i --rm \
 -v /home/build/${params.PROJECT_NAME}:/home/${params.PROJECT_NAME} \
 ${params.DOCKER_PUBLISHER} sh -c \
@@ -174,7 +174,7 @@ ${params.DOCKER_PUBLISHER} sh -c \
 
 对于流水线来说，可以使用 gitlab api 进行消息推送，在 Jenkinsfile 的 post 语法中做最后的信息同步。
 
-```js
+```javascript
  post {
     always {
         echo '构建结束...'
@@ -197,7 +197,7 @@ ${params.DOCKER_PUBLISHER} sh -c \
 
 when 语法使用比较简单，使用方法如下，在 stage 中直接添加对应的规则即可。
 
-```js
+```javascript
 
 stage('test') {
     when { expression { return PIPELINE_TEST == true } }

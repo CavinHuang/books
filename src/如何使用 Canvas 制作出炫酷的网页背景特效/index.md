@@ -65,7 +65,7 @@ Canvas 自 HTML5 发布以来就受到了广泛的关注，但却很少在项目
 6.  在掘金小册阅读过程中，如有任何问题，请邮件联系 <xiaoce@xitu.io>
 
 ## 章节
-- [什么是 Canvas](<./什么是 Canvas .md>)
+- [什么是 Canvas](<./什么是 Canvas.md>)
 - [Canvas 的应用场景](<./Canvas 的应用场景.md>)
 - [手摸手带你入门 Canvas](<./手摸手带你入门 Canvas.md>)
 - [炫酷背景特效的通性](./炫酷背景特效的通性.md)

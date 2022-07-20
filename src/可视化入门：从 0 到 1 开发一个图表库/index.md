@@ -57,7 +57,7 @@ title: 可视化入门：从 0 到 1 开发一个图表库
 
 **Sparrow 支持通过 JavaScript Object 去描述一个图表**。比如如下去绘制一个条形图。
 
-```js
+```javascript
 import { plot } from "@sparrow-vis/sparrow";
 
 const data = [
@@ -88,7 +88,7 @@ document.getElementById("container").appendChild(chart);
 
 同时使用 Sparrow 也有能力绘制出手绘风格的图表：
 
-```js
+```javascript
 import { plot } from "@sparrow-vis/sparrow";
 import { createPlugin } from "@sparrow-vis/rough-renderer"
 

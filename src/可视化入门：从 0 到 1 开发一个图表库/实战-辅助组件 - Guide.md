@@ -73,7 +73,7 @@ axisY 在不同坐标系的展示如下。
 
 了解了坐标轴的不同样子，接下来我们首先抽象出一个创建坐标轴的函数：`createAxis`。该函数会返回一个绘制坐标轴的函数，它根据当前的坐标系选择不同的刻度、标签和格子绘制函数，从而绘制整个坐标轴。
 
-```js
+```javascript
 // src/guide/axis.js
 
 import { identity } from '../utils';
@@ -141,7 +141,7 @@ export function createAxis(components, labelOf) {
 
 具体的实现如下：
 
-```js
+```javascript
 // src/guide/ticks.js
 
 import { rotationOf, unique } from './utils';
@@ -208,7 +208,7 @@ export function ticksCircular(renderer, ticks, { tickLength, fontSize, center })
 
 标签绘制函数的实现没有太大的难点，这里就不具体介绍了。
 
-```js
+```javascript
 // src/guide/label.js
 
 // 当 axis 在左边，且方向向上
@@ -242,7 +242,7 @@ export function labelTopRight(renderer, label, tick, { fontSize, tickLength }) {
 
 网格线的绘制也没有太多的难点，具体的实现参考下面的代码。
 
-```js
+```javascript
 // src/guide/label.js
 
 import { dist } from '../utils';
@@ -285,7 +285,7 @@ export function gridCircular(renderer, ticks, end) {
 
 水平坐标轴在不同的坐标系下需要不同的绘制组件，具体如下面代码所展示的一样。
 
-```js
+```javascript
 // src/guide/axisX.js
 
 import { createAxis } from './axis';
@@ -327,7 +327,7 @@ export const axisX = createAxis(components);
 
 在不同的坐标系下，根据下面这个比例尺绘制水平坐标轴的效果如下。
 
-```js
+```javascript
 const scale = createLinear({
   domain: [0, 10],
   range: [0, 1]
@@ -340,7 +340,7 @@ const scale = createLinear({
 
 竖直坐标轴在不同的坐标系下同样需要不同的绘制组件，具体如下面代码所展示的一样。
 
-```js
+```javascript
 // src/guide/axisY.js
 
 import { createAxis } from './axis';
@@ -382,7 +382,7 @@ export const axisY = createAxis(components);
 
 在不同的坐标系下，根据下面这个比例尺去绘制竖直坐标轴的效果如下。
 
-```js
+```javascript
 const scale = createLinear({
   domain: [0, 10],
   range: [1, 0]
@@ -399,7 +399,7 @@ const scale = createLinear({
 
 首先我们来看看样品图例，它主要针对离散比例尺，比如根据下面这个 Ordinal 比例尺来生成图例，将会得到如下图的效果。
 
-```js
+```javascript
 const scale = createOrdinal({
   domain: ['a', 'b', 'c'],
   range: ['#5B8FF9', '#5AD8A6', '#5D7092'],
@@ -410,7 +410,7 @@ const scale = createOrdinal({
 
 具体的实现如下，涉及一些简单的位置计算和图形绘制。
 
-```js
+```javascript
 // src/guide/legendSwatches.js
 
 import { identity } from '../utils';
@@ -462,7 +462,7 @@ export function legendSwatches(renderer, scale, coordinate, {
 
 接下来是坡道图例，它主要针对连续比例尺，比如根据下面这个 Linear 比例尺来生成图例，将会得到如下图的效果。
 
-```js
+```javascript
 const scale = createLinear({
   domain: [0, 100],
   range: ['#5B8FF9', '#5AD8A6'],
@@ -474,7 +474,7 @@ const scale = createLinear({
 
 具体的实现如下，这里会用一条条颜色渐变的线来实现过度效果。
 
-```js
+```javascript
 // src/guide/legendRamp.js
 
 import { createLinear } from '../scale';
