@@ -95,6 +95,6 @@ GitHub：<https://github.com/answershuto>
 - [数据状态更新时的差异 diff 及 patch 机制](<./数据状态更新时的差异 diff 及 patch 机制.md>)
 - [批量异步更新策略及 nextTick 原理](<./批量异步更新策略及 nextTick 原理.md>)
 - [Vuex 状态管理的工作原理](<./Vuex 状态管理的工作原理.md>)
-- [总结 \& 常见问题解答](<./总结 & 常见问题解答.md>)
+- [总结 \& 常见问题解答](<./总结 and 常见问题解答.md>)
 
     

@@ -6,7 +6,7 @@
 
 slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，用于分发内容。那 slot-scope 是什么呢？先来看一个场景，比如某组件拥有下面的模板：
 
-```html
+```vue
 <ul>
   <li v-for="book in books" :key="book.id">
     {{ book.bookName }}
@@ -14,11 +14,11 @@ slot（插槽）我们都很熟悉，它是 Vue.js 组件的 3 个 API 之一，
 </ul>
 ```
 
-使用者传递一个数组 `books`，由组件内的 `v-for` 循环显示，这里的 `{{ book.bookName }}` 是纯文本输出，如果想自定义它的模板（即内容分发），就要用到 slot，但 slot 只能是固定的模板，没法自定义循环体中的一个具体的项，事实上这跟上一节的 Table 场景是类似的。
+使用者传递一个数组 `books`，由组件内的 `v-for` 循环显示，这里的 `\{\{ book.bookName \}\}` 是纯文本输出，如果想自定义它的模板（即内容分发），就要用到 slot，但 slot 只能是固定的模板，没法自定义循环体中的一个具体的项，事实上这跟上一节的 Table 场景是类似的。
 
 常规的 slot 无法实现对组件循环体的每一项进行不同的内容分发，这就要用到 slot-scope，它本质上跟 slot 一样，只不过可以传递参数。比如上面的示例，使用 slot-scope 封装：
 
-```html
+```vue
 <ul>
   <li v-for="book in books" :key="book.id">
     <slot :book="book">
