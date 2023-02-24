@@ -4,11 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "docs:dev": "node build-contents.js && vitepress dev src",
-    "docs:build": "node build-contents.js && vitepress build src --clean",
+    "docs:dev": "vitepress dev src",
+    "docs:build": "vitepress build src --clean",
     "docs:serve": "vitepress serve src"
   },
   "devDependencies": {
     "vitepress": "^1.0.0-alpha.4"
+  },
+  "dependencies": {
+    "transliteration": "^2.3.5"
   }
 }

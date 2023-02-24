@@ -3,6 +3,7 @@ import sidebar from './sidebar'
 
 export default defineConfig({
   title: 'books',
+  base: '/books/',
   description: 'Vite & Vue powered static site generator.',
 
   lastUpdated: true,
